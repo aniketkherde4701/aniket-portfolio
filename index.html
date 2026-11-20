@@ -1187,7 +1187,7 @@ function home(){
   $("#desk-tog").onclick=()=>{const s=$("#side"),o=!s.classList.contains("expanded");s.classList.toggle("expanded",o);document.body.classList.toggle("desk-open",o);const t=$("#desk-tog");t.setAttribute("aria-expanded",o);t.querySelector("span").textContent=o?"Close desk":"Tailor & ask";t.querySelector("i").textContent=o?"−":"+";if(o&&innerWidth<=900)renderAsk();};
   document.querySelectorAll(".pill").forEach(b=>b.onclick=()=>setReader(b.dataset.r));
   document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>setTime(b.dataset.t));
-  $("#gen").onclick=e=>{const on=e.currentTarget.getAttribute("aria-pressed")!=="true";e.currentTarget.setAttribute("aria-pressed",on);e.currentTarget.textContent=on?"Hide the generic version":"Show the generic version";$("#h1 .gx").hidden=!on;};
+  $("#gen").onclick=e=>{const on=e.currentTarget.getAttribute("aria-pressed")!=="true";e.currentTarget.setAttribute("aria-pressed",on);e.currentTarget.textContent=on?"Hide the generic version":"";$("#h1 .gx").hidden=!on;};
   boardClass();labels();
   if(!S.ready) boot(); else renderBoard(false);
 }
