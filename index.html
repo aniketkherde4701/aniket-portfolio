@@ -684,6 +684,8 @@ body:not(.desk-open) .scope-btn{display:none}
 @media (max-width:900px){.gal.phones{grid-template-columns:1fr 1fr}}
 
 .vid{margin:36px auto 0;max-width:340px}.vid video{display:block;width:100%;height:auto;border-radius:22px;border:1px solid var(--line);background:#000;box-shadow:0 18px 50px -24px rgba(0,0,0,.35)}
+
+.ph.has{cursor:zoom-in}.lb{position:fixed;inset:0;z-index:1000;display:none;place-items:center;padding:4vh 4vw;background:rgba(10,10,9,.88);cursor:zoom-out}.lb.on{display:grid}.lb img{max-width:100%;max-height:92vh;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}.lbx{position:absolute;top:14px;right:18px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:24px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -811,7 +813,13 @@ let heroToken=0;
 /* ===== full case studies (Nolano, Sigma, Terralay) =====
    Each page is a list of sections. Image slots are placeholders named after the
    file that should replace them; drop real files into assets/ later. */
-const ph=(file,what,ratio="16/10",src="")=>`<figure class="ph" style="aspect-ratio:${ratio}"><img src="assets/${esc(file)}" alt="${esc(what)}" loading="lazy" onload="this.parentNode.classList.add('has')" onerror="this.remove()"><div><span class="phl">IMAGE <span class="phn"></span> —</span><b>${esc(what)}</b><span class="f">assets/${esc(file)}</span><small><span class="src">${esc(src)}</span> · ${ratio.replace("/",":")}</small></div></figure>`;
+function phLoad(i){const f=i.parentNode;f.classList.add('has');if(!f.closest('.scard')&&i.naturalWidth)f.style.aspectRatio=i.naturalWidth+'/'+i.naturalHeight;}
+(function(){const lb=document.createElement('div');lb.className='lb';lb.innerHTML='<button class="lbx" aria-label="Close">×</button><img alt="">';document.body.appendChild(lb);
+const close=()=>{lb.classList.remove('on');document.body.style.overflow='';};
+lb.onclick=e=>{if(e.target.tagName!=='IMG'||e.target===lb.querySelector('img'))close();};
+addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+document.addEventListener('click',e=>{const f=e.target.closest('.ph.has');if(!f)return;const im=f.querySelector('img');if(!im)return;e.preventDefault();const L=lb.querySelector('img');L.src=im.currentSrc||im.src;L.alt=im.alt;lb.classList.add('on');document.body.style.overflow='hidden';});})();
+const ph=(file,what,ratio="16/10",src="")=>`<figure class="ph" style="aspect-ratio:${ratio}"><img src="assets/${esc(file)}" alt="${esc(what)}" loading="lazy" onload="phLoad(this)" onerror="this.remove()"><div><span class="phl">IMAGE <span class="phn"></span> —</span><b>${esc(what)}</b><span class="f">assets/${esc(file)}</span><small><span class="src">${esc(src)}</span> · ${ratio.replace("/",":")}</small></div></figure>`;
 const H=(n,lab,h,lead,center)=>`<div class="${center?"center":""}"><span class="cx-k">${n} — ${esc(lab)}</span><h2>${h}</h2>${lead?`<p class="lead">${lead}</p>`:""}</div>`;
 const SEC=(inner,tint)=>`<section class="cx-sec${tint?" tint":""}"><div class="wrap">${inner}</div></section>`;
 const R={
