@@ -636,11 +636,55 @@ footer.foot{max-width:1440px;margin:0 auto;padding:20px var(--gutr) 28px var(--g
 
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;z-index:1}
 .ph.has{border:1px solid var(--line);background:var(--panel)}
-.ph.has>div{visibility:hidden}.ph.has::before,.ph.has::after{display:none}
+.ph{overflow:hidden;min-width:0}.ph.has{min-height:0}@media (max-width:520px){.ph{min-height:0}}.ph.has>div{display:none}.ph.has::before,.ph.has::after{display:none}
+
+/* ===== board cards v3: image-first, no demos ===== */
+.tile{overflow:hidden;padding:0}
+.cov{position:relative;display:block;aspect-ratio:16/10;background:repeating-linear-gradient(135deg,transparent 0 12px,var(--grid) 12px 13px),var(--sunk);border-bottom:1px solid var(--line2);overflow:hidden;text-decoration:none}
+.tile.first .cov{aspect-ratio:21/9}
+.cov img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.tile:hover .cov img{transform:scale(1.02)}
+.cov::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;opacity:.22;mix-blend-mode:multiply}
+:root[data-theme="dark"] .cov::after{mix-blend-mode:screen;opacity:.12}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cov::after{mix-blend-mode:screen;opacity:.12}}
+.cph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:6px;text-align:center}
+.cph .phl{font:600 11px/1 var(--f-mono);letter-spacing:.1em;color:var(--ink3)}
+.cph .f{font:500 10.5px/1.3 var(--f-mono);color:var(--ink2);background:var(--panel);padding:4px 7px;border-radius:5px}
+.cph small{font:400 10.5px/1 var(--f-mono);color:var(--ink3)}
+.cov.has .cph{display:none}
+.tb{padding:18px 20px 18px;display:flex;flex-direction:column;flex:1}
+.tmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.tmeta .ix{font:500 11px/1 var(--f-mono);color:var(--ink3)}
+.tmeta .st{margin:0}
+.tb h3{margin:0;font:500 clamp(26px,2.4vw,34px)/1.02 var(--f-disp);font-stretch:110%;letter-spacing:-.03em}
+.tb h3 a{text-decoration:none}
+.tb .ty{margin:8px 0 0;font-size:13px;color:var(--ink3)}
+.tb .one{margin:14px 0 0;font-size:15.5px;line-height:1.5;color:var(--ink);max-width:52ch}
+.tb .lens{margin:14px 0 0}
+.tb .decs{margin:16px 0 0}
+.tb .tf{padding:20px 0 0;margin-top:auto;border-top:0}
+.go-case{font:600 14px/1 var(--f-body);text-decoration:none;display:inline-flex;gap:8px;align-items:center;padding:10px 0;border-bottom:1.5px solid var(--ink)}
+.go-case i{font-style:normal;transition:transform .2s}
+.tile:hover .go-case i{transform:translateX(4px)}
+body:not(.desk-open) .scope-btn{display:none}
+.t30 .cov{display:none}
+@media (min-width:1101px){
+ .tile.first{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+ .tile.first .cov{aspect-ratio:auto;min-height:340px;border-bottom:0;border-right:1px solid var(--line2)}
+ .tile.first .tb{padding:28px}
+ .tile.first h3{font-size:clamp(34px,3.2vw,48px)}
+ .t30 .tile.first{display:flex}
+}
+
+/* aurora phone images */
+.scard .ph img,.scr.edge .ph img{object-position:top}
+.scard .full{display:inline-block;margin-top:8px;font:500 12px/1 var(--f-mono);color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line)}
+.scard .full:hover{color:var(--ink)}
+.gal.phones figure .ph{width:100%}
+@media (max-width:900px){.gal.phones{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
-
 
 <header class="top">
   <a class="brand" href="#"><i>AK</i>Aniket Kherde</a>
@@ -715,7 +759,7 @@ const PROJECTS = [
   was:"AI research answers you can't trace to a source.",now:"Cited to the passage, or an honest \"this paper doesn't say\".",
   summary:"Ask a research question. AcadLens searches arXiv, picks the single most relevant paper, reads it and answers with a citation to the passage it used, or says the paper doesn't cover it.",
   facts:{Role:"Designer and builder",Timeline:"Nov 2026",Team:"Solo, with Claude Code",Status:"Live prototype, open source"},
-  cover:"acadlens-demo.gif",
+  cover:"acadlens-cover.png",
   problem:["Most AI research answers can't be traced back to a source, so you can't tell a finding from an invention."],
   decisions:[
    {t:"One paper, cited",was:"Confident answers with no source.",now:"It picks the single most relevant arXiv paper and numbers every claim back to the passage it came from."},
@@ -783,7 +827,7 @@ const R={
 const CASES={
  sigma:{src:"Sigma Case study.png",tag:"Founding product designer · AI interface · 2025–26",h:"Your spreadsheet, finally intelligent.",
   lead:"Sigma is an AI-native spreadsheet that lets you edit, clean and analyse data by typing what you want. I designed the core interaction system: how the AI communicates, executes and earns trust.",
-  chips:["Interaction design","AI UX","Desktop + mobile"],hero:["sigma-hero.png","Laptop mockup: the sheet with the AI chat panel open","16/10"],
+  chips:["Interaction design","AI UX","Desktop + mobile"],hero:["sigma-hero.png","Laptop mockup: the sheet with the AI chat panel open","924/512"],
   secs:[
    {k:"cards",n:"01",lab:"Problem",tint:1,h:"Spreadsheets are powerful.<br>Most people can't use them.",lead:"Excel and Google Sheets haven't fundamentally changed in decades. The interface rewards expertise and punishes everyone else. AI tools that promise to help create a new anxiety: you don't know what they changed or whether you can trust it.",
     cards:[{ic:"✕",icc:"r",t:"Complex interface",d:"Formulas, functions, pivot tables: a learning curve most people never climb."},{ic:"?",icc:"a",t:"Blind AI edits",d:"Other AI tools change your data without showing what they did. Trust breaks before it's built."},{ic:"↺",icc:"g",t:"No recovery path",d:"If something goes wrong, there's no clear way to understand or reverse what the AI did."}],
@@ -791,23 +835,23 @@ const CASES={
    {k:"steps",n:"02",lab:"Design challenge",h:"One interaction. Four moments.<br>A complete trust loop.",lead:"Every decision answered one question: does the user always know what the AI is doing, what it did, and how to undo it?",
     steps:[["Select + scope","The user selects cells. The AI is scoped to only those cells; nothing outside is touched."],["Execute","The AI works live. Changes appear in real time with colour coding, so the user watches it happen."],["Review","Every change is listed and categorised before anything is committed."],["Keep or discard","One click keeps everything or throws it all away. Control stays with the user."]]},
    {k:"gallery",n:"03",lab:"The interaction",tint:1,h:"The complete flow, step by step.",lead:"Shown with the example used throughout the prototype: Baseball Tourney data.",
-    items:[["sigma-flow-1.png","Sheet with the AI panel on the right","16/10","1. Starting point","Chat input sits at the bottom of the panel."],["sigma-flow-2.png","Cells selected, “Add to chat” option showing","16/10","2. Select and scope","Adding to chat scopes the AI to only those cells."],["sigma-flow-3.png","Prompt box with the range chip","16/10","3. Prompt with context","The range appears as a chip; the user types the instruction."],["sigma-flow-4.png","Agent working banner and thinking state","16/10","4. Thinking state","The user can see something is happening."],["sigma-flow-5.png","Cells changing with colour codes","16/10","5. Live execution","Colour codes show exactly what type of change each is."],["sigma-flow-6.png","Review panel listing every change","16/10","6. Review and commit","Nothing is permanent until the user decides."]]},
+    items:[["sigma-flow-1.png","Sheet with the AI panel on the right","1680/1040","1. Starting point","Chat input sits at the bottom of the panel."],["sigma-flow-2.png","Cells selected, “Add to chat” option showing","1680/1040","2. Select and scope","Adding to chat scopes the AI to only those cells."],["sigma-flow-3.png","Prompt box with the range chip","1680/1040","3. Prompt with context","The range appears as a chip; the user types the instruction."],["sigma-flow-4.png","Agent working banner and thinking state","1680/1040","4. Thinking state","The user can see something is happening."],["sigma-flow-5.png","Cells changing with colour codes","1680/1040","5. Live execution","Colour codes show exactly what type of change each is."],["sigma-flow-6.png","Review panel listing every change","1680/1040","6. Review and commit","Nothing is permanent until the user decides."]]},
    {k:"cards",n:"04",lab:"Key decision 01",h:"A diff system borrowed from code, applied to data.",lead:"The biggest anxiety with AI editing your data is not knowing what changed. After several iterations I landed on a three-colour change system drawn directly on the cells, the way developers review code changes in Git.",
     cards:[{dk:"r",sample:"Braves 13 8 5",t:"Red dashed border",ty:"DELETION",d:"Row or cell marked for deletion. Text is greyed to show it will be removed, but stays visible for review."},{dk:"g",sample:"Dodgers 9 1 15",t:"Green solid border",ty:"DATA UPDATE",d:"New or updated data. The value has changed."},{dk:"bl",sample:"Total 117",t:"Blue solid border",ty:"FORMULA OR LOGIC",d:"A formula added or changed. Blue signals structural logic, different from raw data."}],
     q:"Users can scan the whole sheet and see every change type at a glance, before reading a word in the chat panel."},
    {k:"decision",n:"04",lab:"Key decision 02",tint:1,h:"Scope the AI before it touches anything.",
     p:["The biggest trust problem with AI tools is unpredictability. Ask one to update two rows and it may rewrite the whole sheet.","I designed a <b>cell selection → Add to chat</b> flow where the selected range appears as a chip in the chat input. The AI can only write inside that range. The user sets the boundary before typing a word.","Scoping also protects cost: vague prompts on bulk data take more credits and time."],
     stats:[["A4:D5","Exact range shown as a chip"],["0","Cells outside the range touched"]],
-    img:["sigma-scope.png","Selected range and the chip inside the chat input","16/10","Selection becomes context. Scope is set before the prompt."]},
+    img:["sigma-scope.png","Selected range and the chip inside the chat input","2560/1936","Selection becomes context. Scope is set before the prompt."]},
    {k:"decision",n:"04",lab:"Key decision 03",rev:1,h:"Show the work.<br>Let the user decide.",
     p:["After running, the AI doesn't just say “done”. It enters <b>Review mode</b>, a named state that tells the user they're now in control.","Every change is listed in the chat panel by type: row deletion, data updated, formula added, chart added. Toolbar filter tabs (All / Data / Formula / Links / Visuals) let users audit by category. Per-change accept is designed but collapsed by default, and Keep all has a one-step undo."],
     q:"The mental model is a lawyer reviewing a contract before signing, not a chatbot that acts and hopes for the best.",
     img:["sigma-review.png","Laptop mockup: Review mode with categorised changes","16/10","Review mode: categorised changes, filter by type, commit when ready."]},
    {k:"gallery",n:"04",lab:"Key decision 04",tint:1,cols:4,h:"A spreadsheet and a chat panel. On a phone. At the same time.",lead:"On desktop the split is easy: sheet left, chat right. On mobile I had one screen and two interfaces that both needed to stay visible.",
-    items:[["sigma-m1.png","Phone: sheet with a single input bar","9/19","Sheet-first default","Chat is one input bar; the sheet gets the space."],["sigma-m2.png","Phone: prompt entry with keyboard","9/19","Prompt entry","The sheet shrinks and the chat grows up from the bottom."],["sigma-m3.png","Phone: live execution","9/19","Live execution","The colour system works the same on mobile."],["sigma-m4.png","Phone: review and commit","9/19","Review + commit","The change list scrolls; Keep all stays reachable."]]},
+    items:[["sigma-m1.png","Phone: sheet with a single input bar","864/1920","Sheet-first default","Chat is one input bar; the sheet gets the space."],["sigma-m2.png","Phone: prompt entry with keyboard","864/1920","Prompt entry","The sheet shrinks and the chat grows up from the bottom."],["sigma-m3.png","Phone: live execution","864/1920","Live execution","The colour system works the same on mobile."],["sigma-m4.png","Phone: review and commit","864/1920","Review + commit","The change list scrolls; Keep all stays reachable."]]},
    {k:"gallery",n:"05",lab:"Final designs",cols:4,h:"Desktop and mobile, complete.",lead:"The same interaction system on both surfaces: same colour logic, same trust loop.",
     top:["sigma-final-desktop.png","Laptop mockup: final desktop design","16/9"],
-    items:[["sigma-final-m1.png","Phone: final screen 1","9/19"],["sigma-final-m2.png","Phone: final screen 2","9/19"],["sigma-final-m3.png","Phone: final screen 3","9/19"],["sigma-final-m4.png","Phone: final screen 4","9/19"]]},
+    items:[["sigma-final-m1.png","Phone: final screen 1","813/1829"],["sigma-final-m2.png","Phone: final screen 2","813/1829"],["sigma-final-m3.png","Phone: final screen 3","813/1829"],["sigma-final-m4.png","Phone: final screen 4","813/1829"]]},
    {k:"outcome",n:"06",lab:"Outcome",h:"A working prototype.<br>Early signals, not proof.",
     stats:[["Prototype","Working, tested internally at Nolano"],["4 moments","Scope, execute, review, keep: one loop"],["2 surfaces","Desktop and mobile, one colour system"]],
     quotes:[["Claude for spreadsheet. I spend less time fixing spreadsheets and more time analysing.","Ashutosh Kumar Verma · Product Manager"],["No menus, no learning curve, just type what you need and Sigma executes.","Ruby Keller · UX Designer"],["It turns me into a pro Excel user. Love the UI/UX.","Irina Rish · Hedge Fund Founder"]],
@@ -816,7 +860,7 @@ const CASES={
   ]},
  nolano:{src:"Nolano case study.png",tag:"Founding designer · SaaS · 2.5 months",h:"Making AI forecasting accessible to non-technical users.",
   lead:"Nolano needed to go from a cluttered prototype to a product real users could trust. Here's how the interface was rebuilt from the ground up.",
-  chips:["Product design","SaaS dashboard","Dark mode"],hero:["nolano-hero.png","Laptop mockup: the Playground with a forecast chart","16/10"],
+  chips:["Product design","SaaS dashboard","Dark mode"],hero:["nolano-hero.png","Laptop mockup: the Playground with a forecast chart","2318/1436"],
   secs:[
    {k:"decision",n:"01",lab:"Context",h:"A forecasting platform built for speed, not just data scientists.",
     p:["Nolano is a time-series forecasting API and dashboard. It lets business teams and developers upload data and generate ML-powered predictions without a data science background.","I joined as the founding designer of an 8-person team, with no existing design system and no senior designer to report to.","My role covered UX strategy, information architecture, component design and working directly with engineers during the build."],
@@ -825,29 +869,29 @@ const CASES={
     cards:[{tg:"Business analyst",t:"Visual user",d:"Uploads business data. Needs to see forecast results clearly without understanding the ML behind it. Judges the product by how fast they get to a chart.",mini:["Playground","Charts","Export"]},{tg:"Developer",t:"API user",d:"Integrates Nolano into their own systems through the API. Needs keys, usage data and documentation without wading through visual tools.",mini:["API keys","Usage","Docs"]},{tg:"First-time user",t:"Evaluator",d:"Hasn't committed yet. Needs to see value immediately without uploading real data. One moment of friction and they leave.",mini:["Sample data","Quick forecast","Zero setup"]}],
     q:"The old version had one layout trying to serve all three. The new version gives each user a clear path."},
    {k:"centered",n:"02",lab:"Problem",h:"The first version tried to serve everyone. It served no one.",lead:"The original dashboard was built to showcase features, not to help users finish tasks.",
-    html:`<div style="margin-top:40px">${ph("nolano-before-annotated.png","The old dashboard, API, documentation and keys screens, with numbered callouts","21/9")}</div><div class="cards c4" style="--n:4;margin-top:20px">${[["1","Wrong dashboard focus","Infrastructure metrics instead of forecasting."],["2","API and charts competing","Split attention on the first screen."],["3","Social mechanics on a B2B tool","The wrong context for the job."],["4","Forecasting below the fold","The core feature was hidden."],["5","No hierarchy in the sidebar","Every item felt equally important."],["6","No clear entry point","Users felt lost."],["7","No search or filter","Users felt less in command."]].map(x=>`<div class="card"><span class="ic">${x[0]}</span><h3>${x[1]}</h3><p>${x[2]}</p></div>`).join("")}</div><p class="pq">“The product was feature-complete but journey-broken.”</p>`},
+    html:`<div style="margin-top:40px">${ph("nolano-before-annotated.png","The old dashboard, API, documentation and keys screens, with numbered callouts","2400/858")}</div><div class="cards c4" style="--n:4;margin-top:20px">${[["1","Wrong dashboard focus","Infrastructure metrics instead of forecasting."],["2","API and charts competing","Split attention on the first screen."],["3","Social mechanics on a B2B tool","The wrong context for the job."],["4","Forecasting below the fold","The core feature was hidden."],["5","No hierarchy in the sidebar","Every item felt equally important."],["6","No clear entry point","Users felt lost."],["7","No search or filter","Users felt less in command."]].map(x=>`<div class="card"><span class="ic">${x[0]}</span><h3>${x[1]}</h3><p>${x[2]}</p></div>`).join("")}</div><p class="pq">“The product was feature-complete but journey-broken.”</p>`},
    {k:"flows",n:"02.5",lab:"Information architecture",tint:1,h:"From circular navigation to a linear task flow.",lead:"The redesign wasn't visual first. It was structural.",
     before:["Land on dashboard","Confused by charts, API and settings all visible","Search for the upload button","Run a forecast in the same cluttered space","Can't find API keys to deploy"],bs:"5+ steps · high friction · no clear path",
     after:["Choose: upload data or try a sample","Configure and run the forecast in the Playground","Get API keys and usage from the top navigation"],as:"3 steps · low friction · clear path"},
    {k:"timeline",n:"03",lab:"Process",h:"High-velocity design in a startup.",lead:"No month-long research cycles. Founder discussions, fast wireframes, real decisions.",
     steps:[["Founder sessions","Mapped technical requirements and found the friction points in the old UI."],["Workflow mapping","Defined 3 core journeys: upload, sample data, API + billing."],["Wireframing","Low-fidelity layout logic validated before any visual decisions."],["Build + refine","Worked alongside engineers, building in Lovable with Figma as the source of truth."]],
-    img:["nolano-wireframes.png","Two early wireframes: Datasets and the forecasting Playground","16/6","Early wireframes"]},
+    img:["nolano-wireframes.png","Two early wireframes: Home and the forecasting Playground","2800/846","Early wireframes"]},
    {k:"cards",n:"03.5",lab:"Wireframes",tint:1,h:"Layout logic before visual decisions.",lead:"Three layout directions explored. One chosen, and here's why.",
-    cards:[{tg:"Explored · rejected",tgc:"rej",img:["nolano-option-dashboard.png","Wireframe: dashboard-first layout","16/10"],t:"Dashboard-first layout",d:"Everything visible on one screen. Fast to scan, overwhelming for new users, with no clear action hierarchy."},{tg:"Explored · rejected",tgc:"rej",img:["nolano-option-wizard.png","Wireframe: step-by-step wizard","16/10"],t:"Step-by-step wizard",d:"Guided but slow. We expected returning users to feel trapped in a linear flow they'd already completed."},{tg:"Chosen",tgc:"ok",img:["nolano-option-split.png","Wireframe: split-pane layout","16/10"],t:"Split-pane layout",d:"Settings on the right, chart on the left. Users see the impact of every configuration change in real time.",pick:"Chosen because it served both first-time users and returning power users without compromising either."}]},
+    cards:[{tg:"Explored · rejected",tgc:"rej",img:["nolano-option-dashboard.png","Wireframe: dashboard-first layout","1312/801"],t:"Dashboard-first layout",d:"Everything visible on one screen. Fast to scan, overwhelming for new users, with no clear action hierarchy."},{tg:"Explored · rejected",tgc:"rej",img:["nolano-option-wizard.png","Wireframe: step-by-step wizard","1312/801"],t:"Step-by-step wizard",d:"Guided but slow. We expected returning users to feel trapped in a linear flow they'd already completed."},{tg:"Chosen",tgc:"ok",img:["nolano-option-split.png","Wireframe: split-pane layout","1312/801"],t:"Split-pane layout",d:"Settings on the right, chart on the left. Users see the impact of every configuration change in real time.",pick:"Chosen because it served both first-time users and returning power users without compromising either."}]},
    {k:"decision",n:"04",lab:"Key decision 01",h:"Separating data from execution.",
     p:["In the original UI, uploading data and running a forecast happened in the same cluttered space. There was no separation between “my data” and “my forecast”.","I created a dedicated <b>Datasets library</b>, where users build and manage their data independently of the forecasting workflow. It made both spaces cleaner and gave developers a proper file system."],
     ba:["one cluttered space","Library + Playground separated"],
-    img:["nolano-datasets.png","Datasets page: my uploads above, public sample datasets below","16/10","Datasets: personal uploads separate from public templates"]},
+    img:["nolano-datasets.png","Datasets page: my uploads above, public sample datasets below","2400/1487","Datasets: personal uploads separate from public templates"]},
    {k:"decision",n:"04",lab:"Key decision 02",rev:1,tint:1,h:"Letting users see value before committing.",
     p:["New users hesitated to upload real business data into a product they hadn't seen work yet, which risks drop-off before anyone runs a forecast.","I added <b>public sample datasets</b> (Bitcoin prices, sports stats, financial time series) that users could forecast with one click, with no upload. This became the main onboarding path and made demos much easier."],
     q:"My idea. It came from noticing that trust had to come before commitment.",
-    img:["nolano-playground.png","Playground running a forecast on a public dataset","16/10","Playground: a forecast on a public dataset, no upload needed"]},
+    img:["nolano-playground.png","Playground running a forecast on a public dataset","2400/1464","Playground: a forecast on a public dataset, no upload needed"]},
    {k:"decision",n:"04",lab:"Key decision 03",h:"Treating API access as a first-class feature.",
     p:["Developers were core users of Nolano's API, but in the old version API keys were buried in settings, an afterthought reached through visual chart tools that had nothing to do with their workflow.","I moved <b>API Keys and Usage</b> to the top-level navigation and kept the table minimal and scannable, so developers can find their keys and usage at a glance."],
     stats:[["2","clicks to an API key (new)"],["4+","clicks before (old)"]],
-    img:["nolano-api-keys.png","API Keys table: status visible, add new in one click","16/10","API Keys: table layout, status visible"]},
+    img:["nolano-api-keys.png","API Keys table: status visible, add new in one click","2400/1464","API Keys: table layout, status visible"]},
    {k:"gallery",n:"05",lab:"Final designs",tint:1,cols:2,h:"The complete product.",lead:"Core screens, each built around one user task.",
-    items:[["nolano-final-playground.png","Playground: chart view","16/10","Playground","Chart left, settings right."],["nolano-final-table.png","Playground: table view","16/10","Forecast table","The same forecast as rows."],["nolano-final-usage.png","Usage dashboard","16/10","Usage","Requests and trends for developers."],["nolano-final-datasets.png","Datasets library","16/10","Datasets","Uploads and public samples."]]},
+    items:[["nolano-final-playground.png","Playground: chart view","2318/1436","Playground","Chart left, settings right."],["nolano-final-table.png","Playground: table view","2318/1436","Forecast table","The same forecast as rows."],["nolano-final-usage.png","Usage dashboard","2318/1436","Usage","Requests and trends for developers."],["nolano-final-datasets.png","Datasets library","2318/1436","Datasets","Uploads and public samples."]]},
    {k:"outcome",n:"06",lab:"Outcome",h:"Demoed, not launched.",
     stats:[["~$1K MRR","Pre-launch demand recorded by the company"],["Live demos","Used with investors and customers"],["3 steps","To a first forecast, down from 5+"]],
     reflect:"The product went from a feature showcase to a task-oriented platform, modular enough to grow without a full rebuild.",
@@ -855,10 +899,10 @@ const CASES={
   ]},
  terralay:{src:"terralay case study.png",tag:"Freelance redesign · Construction tech · Apr–Jun 2026",h:"Redesigning a GIS platform for construction teams who can't afford confusion.",
   lead:"Terralay existed but wasn't working. Raya Design Studio brought me in to redesign the product, define the user system and design features that didn't exist yet.",
-  chips:["3 user roles","Multi-tenant architecture","New features added"],hero:["terralay-hero.png","Laptop photo: the Terralay login screen","16/12"],
+  chips:["3 user roles","Multi-tenant architecture","New features added"],hero:["terralay-hero.png","Laptop photo: the Terralay login screen","2400/1933"],
   secs:[
    {k:"centered",n:"01",lab:"Problem",tint:1,h:"An existing product. A broken experience.",lead:"The original Terralay had the right idea but no information architecture. Users had no sense of where they were, what they owned or what to do next.",
-    html:`<div class="split" style="margin-top:40px;align-items:start"><div>${ph("terralay-before.png","Old screens: projects list, users table, GIS workspace","16/10")}<span class="btag r">Before</span><ul class="xl r">${["No organisation layer: users land straight in projects","No status system: active, on hold and draft don't exist","A generic blue template with no brand identity","The users table exposes every action to everyone"].map(x=>`<li>${x}</li>`).join("")}</ul></div><div>${ph("terralay-after.png","New screens: organisations, projects with status, GIS workspace","16/10")}<span class="btag g">After</span><ul class="xl g">${["An organisation layer and a proper hierarchy","Active / On hold / Archived status throughout","A branded identity: dark green, the Terralay logo","Role-based access visible at every level"].map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`},
+    html:`<div class="split" style="margin-top:40px;align-items:start"><div>${ph("terralay-before.png","Old screens: projects list, users table, GIS workspace","2400/1500")}<span class="btag r">Before</span><ul class="xl r">${["No organisation layer: users land straight in projects","No status system: active, on hold and draft don't exist","A generic blue template with no brand identity","The users table exposes every action to everyone"].map(x=>`<li>${x}</li>`).join("")}</ul></div><div>${ph("terralay-after.png","New screens: organisations, projects with status, GIS workspace","2400/1494")}<span class="btag g">After</span><ul class="xl g">${["An organisation layer and a proper hierarchy","Active / On hold / Archived status throughout","A branded identity: dark green, the Terralay logo","Role-based access visible at every level"].map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`},
    {k:"cards",n:"02",lab:"User roles",h:"Three users. Three levels of control. One product.",lead:"The old version had no concept of roles in the interface. The redesign makes the hierarchy visible at every level.",
     cards:[{tg:"Platform level",t:"Super admin",sub:"Raya Design Studio",d:"Owns the platform. Onboards companies, monitors every organisation, manages subscriptions and archive status.",listLab:"Exclusive access",list:["Organisations page","All projects across all companies","Platform-wide user management"]},{tg:"Company level",t:"Organisation admin",sub:"A construction company",d:"Manages the company's projects, adds employees, assigns roles and sees all project activity in the organisation.",listLab:"Exclusive access",list:["Company project dashboard","Employee management","Project creation and assignment"]},{tg:"Project level",t:"Field employee",sub:"Site engineers, surveyors",d:"Works inside assigned projects only, using the GIS tools to record field activity: pins, paths, tracks and map overlays.",listLab:"Exclusive access",list:["Assigned projects only","All GIS tools","Activity creation and media upload"]}],
     note:"Access is additive: each level inherits what's below it and adds its own layer of control."},
@@ -869,19 +913,19 @@ const CASES={
     before:["Login","Projects page: a flat list, no context","Open project → GIS workspace","No history, no organisation layer, no status"],bs:"No hierarchy · no role separation · no accountability",
     afterHTML:`<div class="fbox">Login</div><span class="farr">↓</span><div class="branch"><div class="fbox">Super admin</div><div class="fbox">Org admin</div><div class="fbox">Employee</div></div><span class="farr">↓</span><div class="branch2"><div class="fbox">Orgs → Projects → GIS + History</div><div class="fbox">Assigned projects → GIS only</div></div>`,as:"3-tier hierarchy · role-based paths · full accountability"},
    {k:"centered",n:"03",lab:"Key decision 01",tint:1,h:"Building the hierarchy the old version never had.",lead:"The biggest structural problem was that there was no organisation layer. Everything was flat. I introduced a three-tier hierarchy that lets the product serve more than one company.",
-    html:`<div class="tree"><div class="nd"><b>Super admin</b><small>Platform owner</small></div><div class="ln"></div><div class="nd"><b>Organisation</b><small>One per construction company</small></div><div class="row"><div class="nd"><b>Active project</b><small>In progress</small></div><div class="nd"><b>On hold</b><small>Paused</small></div><div class="nd"><b>Draft</b><small>Unpublished</small></div></div></div><div class="gal" style="--c:2">${ph("terralay-organisations.png","Organisations page: company cards with stats","16/10")}${ph("terralay-projects.png","Company projects page: cards with status bands","16/10")}</div>`},
+    html:`<div class="tree"><div class="nd"><b>Super admin</b><small>Platform owner</small></div><div class="ln"></div><div class="nd"><b>Organisation</b><small>One per construction company</small></div><div class="row"><div class="nd"><b>Active project</b><small>In progress</small></div><div class="nd"><b>On hold</b><small>Paused</small></div><div class="nd"><b>Draft</b><small>Unpublished</small></div></div></div><div class="gal" style="--c:2">${ph("terralay-organisations.png","Organisations page: company cards with stats","2400/1500")}${ph("terralay-projects.png","Company projects page: cards with status bands","2400/1500")}</div>`},
    {k:"decision",n:"03",lab:"Key decision 02",h:"Two different users. Two pages that looked identical.",
     p:["Early in the redesign, the super admin's Organisations page and the company admin's Projects page used the same card layout. A super admin could land in the wrong context without realising it.","I separated them with a <b>tinted card header system</b>: organisation cards keep a neutral background, while project cards carry a coloured status band (green for active, amber for on hold, grey for draft). The colour tells you which layer you're in before you read a word."],
     q:"The fix wasn't cosmetic. It was a navigation clarity decision.",
-    img:["terralay-cards-compare.png","Organisation cards and project cards side by side","4/3"]},
+    img:["terralay-cards-compare.png","Organisation cards and project cards side by side","2400/2046"]},
    {k:"decision",n:"03",lab:"Key decision 03",rev:1,tint:1,h:"A feature nobody briefed me on. I designed it anyway.",
     p:["Construction sites have accountability problems. Who added this pin? Who changed that measurement? When? The product had no answer.","I designed a <b>Project History</b> page from scratch, outside the brief. It sorts all project activity by type (distances, pins, paths, tracks, maps), shows full metadata in each row, and opens a details panel with media, an activity summary and version history. The mental model is the file details panel in Google Drive, something field teams already know."],
-    img:["terralay-history.png","Project History: category sidebar, metadata table, slide-in details panel","16/11"]},
+    img:["terralay-history.png","Project History: category sidebar, metadata table, slide-in details panel","2400/1782"]},
    {k:"centered",n:"03",lab:"Key decision 04",h:"Improving usability without changing the layout.",lead:"The developer had fixed the GIS workspace structure: tools on the right, layers on the left. I couldn't change it, so I improved everything else.",
-    html:`<div style="margin-top:40px">${ph("terralay-gis-workspace.png","GIS workspace: layers left, map centre, labelled tools right","16/9")}</div><div class="cards" style="--n:3;margin-top:20px">${[["Icons with labels","The tools panel pairs every icon with a text label, instead of icons alone."],["Accordion expand","Each tool expands inline: no modal, no page change."],["Integrated layer cards","Layer visibility, opacity and delete in one compact card."]].map(x=>`<div class="card"><span class="ic g">●</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div>`},
+    html:`<div style="margin-top:40px">${ph("terralay-gis-workspace.png","GIS workspace: layers left, map centre, labelled tools right","2400/1500")}</div><div class="cards" style="--n:3;margin-top:20px">${[["Icons with labels","The tools panel pairs every icon with a text label, instead of icons alone."],["Accordion expand","Each tool expands inline: no modal, no page change."],["Integrated layer cards","Layer visibility, opacity and delete in one compact card."]].map(x=>`<div class="card"><span class="ic g">●</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div>`},
    {k:"gallery",n:"04",lab:"Final designs",tint:1,cols:3,h:"The redesigned product.",lead:"Every screen rebuilt, with new pages where the product needed them.",
-    top:["terralay-before-after-strip.png","Four old screens above their four redesigned versions, linked by arrows","21/8"],
-    items:[["terralay-final-login.png","Login","16/10","Login"],["terralay-final-orgs.png","Organisations","16/10","Organisations"],["terralay-final-projects.png","Company projects","16/10","Projects"],["terralay-final-gis.png","GIS workspace","16/10","GIS workspace"],["terralay-final-history.png","Project History","16/10","Project History"],["terralay-final-users.png","Users and roles","16/10","Users"]]},
+    top:["terralay-before-after-strip.png","Four old screens above their four redesigned versions, linked by arrows","2800/1008"],
+    items:[["terralay-final-login.png","Login","2164/1353","Login"],["terralay-final-orgs.png","Organisations","2172/1356","Organisations"],["terralay-final-projects.png","Company projects","1464/916","Projects"],["terralay-final-gis.png","GIS workspace","1464/916","GIS workspace"],["terralay-final-history.png","Project History","1464/916","Project History"],["terralay-final-users.png","Users and roles","16/10","Users"]]},
    {k:"outcome",n:"05",lab:"Outcome",h:"A product that now knows what it is.",
     stats:[["3 tiers","A hierarchy where none existed"],["3 additions","Organisations page, status system, Project History"],["Handed off","Engagement ended in June 2026"]],
     reflect:"The redesign gave the product a structure it can grow into: organisations, projects, history and roles that reflect how construction companies actually work.",
@@ -926,21 +970,21 @@ CASES.aurora={
  h:"Report what the agent learned, not what it did.",
  lead:"Aurora is a voice AI app that phones local businesses for you and reports back in a chat. I used it for real searches, found that it reports activity instead of answers, and redesigned the search screen around one live answer that only shows as fact what a shop actually said.",
  chips:["Voice AI agent","Trust and evidence","Mobile"],
- hero:["aurora-01-hero.png","Before: ranked list with INFLIX #1, beside After: screen D “No exact match”","16/10","submission.pdf p1 + Screens.pdf"],
+ hero:["aurora-01-hero.png","Before: ranked list with INFLIX #1, beside After: screen D “No exact match”","1/1","submission.pdf p1 + Screens.pdf"],
  pre:SEC(`<div class="ax-top"><div class="tl"><span class="cx-k">TL;DR</span><p>Aurora tells you what it's <em>doing</em> (shops found, calls made, a ranking) but not what it <em>learned</em>. In a real search, a call where no one spoke was marked “Success”, and the #1 shop had told Aurora it didn't have the item. I redesigned the search screen around one live answer that grows as calls finish, and only shows as fact what a shop actually said.</p></div>
   <dl class="glance">${[["Project","Aurora: before & after"],["What it was","Take-home design assignment for a Founding Product Designer role"],["Product","A voice AI app that phones local businesses for you (“who has this item, at what price?”) and reports back in a chat"],["My role","Sole designer: audit, research from live usage, problem framing, flows, UI, UX copy, prototype"],["Timeline","November 2026, about one week"],["Tools","Figma, Figma Make, FigJam, Claude as a critique partner"],["Deliverables","2-page submission PDF, clickable Figma prototype, 1-minute walkthrough video"],["Constraint","The backend couldn't change: how Aurora finds businesses, places calls and ranks results stays as it is. Only flow, UI and copy were in scope."]].map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl></div>`,true),
  secs:[
   {k:"html",html:AX("01","Context","What Aurora is.","You type or say what you need, such as “gaming keyboard, wired, mechanical, RGB, under ₹1,500, near Mudholkar Peth, Amravati”. Then Aurora:",
    `<div class="steps arrows" style="margin-top:32px">${[["Finds","Businesses nearby, from maps listings."],["Calls","Each one with an AI voice and asks your question."],["Summarises","A call summary and transcript for each call."],["Ranks","The businesses, with an AI “match” score."]].map((x,i)=>`<div class="step"><span class="n">Step ${i+1}</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div>
    <p class="pq">All of this happens in a chat thread. A search can run for hours while you're away from the app.</p>
-   <div style="margin-top:32px">${ph("aurora-02-original-flow.png","The original end-to-end flow, as I mapped it in FigJam","16/7","Section_1.pdf")}</div>`)},
+   <div style="margin-top:32px">${ph("aurora-02-original-flow.png","The original end-to-end flow, as I mapped it in FigJam","2800/1976","Section_1.pdf")}</div>`)},
   {k:"html",html:AX("02","How I researched it","I used Aurora for real, and treated each search as a field study.","The brief gave me the app and asked for a redesign. Instead of reviewing it from a few screenshots, I ran real searches.",
    `<div class="cards" style="--n:2">
      <div class="card"><span class="tg">Search 1 · warning signs</span><h3>A gold-tone watch</h3><p>A transcript came out in Spanish while the call was marked “Success”, and the #1 shop had a 0% match. I stopped the search myself; by then it read “52 found · 36 called · 46 ranked · Stopped”, with no answer.</p></div>
      <div class="card"><span class="tg ok">Search 2 · the main evidence</span><h3>A wired mechanical RGB gaming keyboard under ₹1,500</h3><p>In Amravati, a city, so nobody could dismiss the problem as “a remote village with bad data”. It started at 10:19 PM on 11 Nov and ran for more than 12 hours.</p></div></div>
    <div class="out-stats ax4" style="margin-top:28px">${[["109","businesses found within 35.7 km"],["115 · 71","calls placed · shops reached"],["10:21 PM","when the first calls went out"],["0","answers posted in the chat"]].map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>
    <p class="pq">I audited every screen, then separated <b>evidence</b> (what the screen shows) from <b>interpretation</b> (what I think it means). Several of my own first findings didn't survive that test.</p>
-   <div style="margin-top:32px">${ph("aurora-03-live-search.png","Live keyboard search: chat with green ticks, activity log with 10:21 PM calls","16/8","WhatsApp screenshots")}</div>`,true)},
+   <div style="margin-top:32px"><div class="gal phones" style="--c:4">${[["aurora-03a-chat.jpg","Chat: 109 found, 115 called, 71 reached","The chat after the run: activity, but no answer."],["aurora-03b-calling-live.jpg","Map while calling: 18 done, ranking live","Calling and ranking at the same time."],["aurora-03c-activity-log.jpg","NEXTGEN activity log: calls at 10:21 PM","The first calls went out at 10:21 PM."],["aurora-03d-ranking-complete.jpg","Ranking complete: INFLIX #1, Ratnam ₹2,200","“Ranking Complete!”, with INFLIX at #1."]].map(x=>`<figure>${ph(x[0],x[1],"720/1600","My phone, 11 Nov")}<p class="cap">${x[2]}</p></figure>`).join("")}</div></div>`,true)},
   {k:"html",html:AX("03","What I found","Activity, not answers. And statuses you can't trust.","",
    `<blockquote class="ax-claim">While Aurora calls shops, it reports activity (shops found, calls made, a ranking) but not what it learned, so people can't tell if the item exists, where, or for how much. Its statuses can't be trusted either: a call where no one spoke is marked “Success”, and the #1 shop's own call says it doesn't have the item.</blockquote>
    <p class="ax-sub">The evidence, numbered, because the redesign answers each number.</p>
@@ -951,7 +995,7 @@ CASES.aurora={
     <li><i>④</i><div><h3>“Success” means the line connected, not that anyone learned anything.</h3><p>Pravin Electronics: “Completed · Success · 3.02s” with “No conversation took place”. Its card still showed “1 keyboard” and a price of <b>$250</b>, in dollars, so that data came from somewhere other than the call, and the app doesn't say where. Honest labels already existed in the app (“Did not connect”, “Menu only”), so honest statuses were possible.</p></div></li>
     <li><i>⑤</i><div><h3>Every step ticks green, but the chat never posts an answer.</h3><p>“Businesses discovered! ✓ · Called 71 businesses! ✓ · Ranking Complete! ✓”, and then nothing. With the green #1 row, the screen <em>feels</em> finished and answered when it isn't.</p></div></li>
    </ol>
-   <div class="gal" style="--c:3">${[["aurora-04-before-chat.png","Before 1: chat with “Ranking Complete!” and INFLIX #1","callouts ① and ⑤"],["aurora-05-before-inflix.png","Before 2: INFLIX sheet, 45% match, “✓ Single unit available”","callouts ② and ③"],["aurora-06-before-pravin.png","Before 3: Pravin sheet, “Success · 3.02s”, “No conversation took place”","callout ④"]].map(x=>`<figure>${ph(x[0],x[1],"9/16","submission.pdf p1")}<p class="cap">${x[2]}</p></figure>`).join("")}</div>
+   <div class="gal" style="--c:3">${[["aurora-04-before-chat.png","Before 1: chat with “Ranking Complete!” and INFLIX #1","callouts ① and ⑤"],["aurora-05-before-inflix.png","Before 2: INFLIX sheet, 45% match, “✓ Single unit available”","callouts ② and ③"],["aurora-06-before-pravin.png","Before 3: Pravin sheet, “Success · 3.02s”, “No conversation took place”","callout ④"]].map(x=>`<figure>${ph(x[0],x[1],"813/1730","submission.pdf p1")}<p class="cap">${x[2]}</p></figure>`).join("")}</div>
    <h3 class="ax-h3">Also found, out of scope but worth saying</h3>
    <div class="cards c4" style="--n:4;margin-top:16px">${[["Calls at night","The first calls went out at 10:21 PM, when most shops are closed or busy."],["Aurora pretended to be a person","On one call it said “Sorry, I'm driving right now, can't check WhatsApp”, breaking its own promise in settings: “I never pretend to be you”. Backend behaviour, so I flagged it rather than redesigned it."],["“Nice find! Share it”","Popped up on a shop whose call said no."],["The radius quietly grew","To 35.7 km, inside a city."]].map(x=>`<div class="card"><span class="ic a">!</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div>`)},
   {k:"html",html:AX("04","Framing","Choosing what to solve.","I had two candidate problems.",
@@ -973,7 +1017,7 @@ CASES.aurora={
      <div class="row"><div class="st w">B2 · Offline<small>can happen from any state; the search keeps running</small></div></div>
    </div>
    <p class="pq">The night check asks before calls start late and offers 10 AM instead. It changes the flow, not the calling, so it stays inside the fixed-backend constraint.</p>
-   <div style="margin-top:28px">${ph("aurora-07-flow-map.png","Flow map of key states","16/6","submission.pdf p1, bottom")}</div>`,true)},
+   <div style="margin-top:28px">${ph("aurora-07-flow-map.png","Flow map of key states","2800/706","submission.pdf p1, bottom")}</div>`,true)},
   {k:"html",html:AX("07","Design system","Teal gets one meaning: Aurora heard this.","The brand colour, teal #04AA8A, clashed with my rule “green only for confirmed facts”. I resolved it by giving teal a single job.",
    `<div class="ds">
     <div class="dsc"><h3>Colour roles</h3>
@@ -989,21 +1033,21 @@ CASES.aurora={
      <p class="ty-q">“Wired, but not mechanical.”</p><span class="fxl">Instrument Serif Italic, only for what shops actually said</span>
      <h3 style="margin-top:22px">Copy</h3><p class="fxl" style="font-size:14px">Headlines of 5 words at most, buttons of 2. Short and plain: it says what was heard, and what wasn't.</p></div>
    </div>
-   <div style="margin-top:28px">${ph("aurora-08-design-system.png","Design system: colours, fact chips (heard / not checked / unknown), type","16/8","Figma file, design system page")}</div>`)},
+   <div style="margin-top:28px">${ph("aurora-08-design-system.png","Design system: colours, fact chips (heard / not checked / unknown), type","2400/1730","Figma file, design system page")}</div>`)},
   {k:"html",html:AX("08","One screen that grows","Watch one screen update, instead of being moved between screens.","Screens A, B and D share one skeleton: header, answer block, live line, calls list. The answer block grows from “Nothing confirmed yet” to a lead, then to a verdict. I found this after my first prototype, where B looked like a different screen from A, and rebuilt all three on shared layers.",
    `<div class="grow">${[["A","Nothing confirmed yet","12 reached"],["B","Closest so far","INFLIX Computers, Itwara Bazar"],["D","No exact match","115 calls · 71 reached"]].map((x,i)=>(i?`<span class="ar">→</span>`:"")+`<div class="gs"><span class="gk">Screen ${x[0]}</span><div class="gb"><small>Answer</small><b>${x[1]}</b><span>${x[2]}</span></div><div class="gl"></div><div class="gl s"></div><div class="gl"></div></div>`).join("")}</div>`,true)},
   {k:"html",html:AX("09","Screens","Six screens, one question: has anyone got it?","",
    `<div class="scr">${[
-     ["aurora-09-screen-a.png","Screen A","A · Calling: nothing confirmed yet","An honest empty state: “Nothing confirmed yet · 12 reached”. Each call shows its real status (Calling, Ended · 9s, Queued). The header chip shows the real search area, “35.7 km”."],
-     ["aurora-10-screen-b.png","Screen B","B · First lead: same screen, the block grows","“Closest so far: INFLIX Computers, Itwara Bazar.” Chips: Wired, RGB, Semi-mechanical (heard), Price (unknown), “1 in stock?” (not checked). The shop's own words, “Wired, but not mechanical.”, with a 0:43 timestamp to play. Primary action: Call shop."],
-     ["aurora-11-screen-c-pravin.png","Screen C, Pravin sheet","C · Call result: Pravin","“Silent · 3s” and “Nothing learned” replace “Success”. The listing's claims show as “Listing says: 1 keyboard? $250?”, clearly not from the call."],
-     ["aurora-12-screen-c2-inflix.png","Screen C2, INFLIX sheet","C2 · INFLIX sheet","Leads with the verdict, “Close, not exact”, then what was heard, what's unproven, and key moments with timestamps: “Share details on WhatsApp.” 0:18 · “Wired, but not mechanical.” 0:43 · “No.” 0:55, when asked about other mechanical ones. The activity log is folded at the bottom."],
-     ["aurora-13-screen-d.png","Screen D","D · Answer ready: no exact match, plus the closest","“No exact match · 115 calls · 71 reached.” INFLIX as the closest option, with its proof. A small map with only the 3 shops worth a look. “Try instead” chips: Semi-mechanical, Up to ₹2,500. No #1 badges anywhere. An honest no is more useful than a fake yes."],
-     ["aurora-14-screen-e-home.png","Screen E, Home","E · Home: back later, status first","The headline is the answer: “No exact match”. A panel shows “71 reached of 109”, one close match (INFLIX) and See answer. Earlier searches sit quietly below."]
-    ].map(x=>`<div class="scard">${ph(x[0],x[1],"9/19","Screens.pdf")}<div><h3>${x[2]}</h3><p>${x[3]}</p></div></div>`).join("")}</div>`)},
+     ["aurora-09-screen-a.jpg","Screen A","A · Calling: nothing confirmed yet","An honest empty state: “Nothing confirmed yet · 12 reached”. Each call shows its real status (Calling, Ended · 9s, Queued). The header chip shows the real search area, “35.7 km”."],
+     ["aurora-10-screen-b.jpg","Screen B","B · First lead: same screen, the block grows","“Closest so far: INFLIX Computers, Itwara Bazar.” Chips: Wired, RGB, Semi-mechanical (heard), Price (unknown), “1 in stock?” (not checked). The shop's own words, “Wired, but not mechanical.”, with a 0:43 timestamp to play. Primary action: Call shop."],
+     ["aurora-11-screen-c-pravin.jpg","Screen C, Pravin sheet","C · Call result: Pravin","“Silent · 3s” and “Nothing learned” replace “Success”. The listing's claims show as “Listing says: 1 keyboard? $250?”, clearly not from the call."],
+     ["aurora-12-screen-c2-inflix.jpg","Screen C2, INFLIX sheet","C2 · INFLIX sheet","Leads with the verdict, “Close, not exact”, then what was heard, what's unproven, and key moments with timestamps: “Share details on WhatsApp.” 0:18 · “Wired, but not mechanical.” 0:43 · “No.” 0:55, when asked about other mechanical ones. The activity log is folded at the bottom."],
+     ["aurora-13-screen-d.jpg","Screen D","D · Answer ready: no exact match, plus the closest","“No exact match · 115 calls · 71 reached.” INFLIX as the closest option, with its proof. A small map with only the 3 shops worth a look. “Try instead” chips: Semi-mechanical, Up to ₹2,500. No #1 badges anywhere. An honest no is more useful than a fake yes."],
+     ["aurora-14-screen-e-home.jpg","Screen E, Home","E · Home: back later, status first","The headline is the answer: “No exact match”. A panel shows “71 reached of 109”, one close match (INFLIX) and See answer. Earlier searches sit quietly below."]
+    ].map(x=>`<div class="scard">${ph(x[0],x[1],"900/1955","Screens.pdf")}<div><h3>${x[2]}</h3><p>${x[3]}</p><a class="full" href="assets/${x[0]}" target="_blank" rel="noopener">View full screen ↗</a></div></div>`).join("")}</div>`)},
   {k:"html",html:AX("10","Edge and error states","Interruptions that don't lose anything.","",
    `<div class="cards" style="--n:3">${[["Night check","Before calls start after 9 PM, it offers to start at 10 AM instead."],["B2 · Offline","“You're offline. Your search keeps running.” The phone losing signal doesn't stop the search."],["D2 · No one picked up","Nothing was confirmed or ruled out, so it offers to retry at 10 AM."]].map(x=>`<div class="card"><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div>
-   <div style="margin-top:24px">${ph("aurora-15-edge-states.png","Night check, B2 Offline and D2 No one picked up, side by side","16/8","Screens.pdf")}</div>`,true)},
+   <div class="scr edge">${[["aurora-15a-night-check.png","Night check"],["aurora-15b-offline.png","B2 · Offline"],["aurora-15c-no-one-picked-up.png","D2 · No one picked up"]].map(x=>`<div class="scard">${ph(x[0],x[1],"800/1704","Screens.pdf")}<p class="cap" style="text-align:center">${x[1]}</p></div>`).join("")}</div>`,true)},
   {k:"html",html:AX("11","Before → After","Every numbered problem, answered.","",
    `<div class="ba">${[["①","INFLIX ranked #1 by AI score, contradicting its own call","No #1 badges; D shows “Closest”, not a rank"],["②","Green ✓ “Single unit available”, never said on the call","Teal chips were heard on the call; peach “?” chips weren't"],["③","The call's evidence hidden two taps deep","The shop's own words on the lead, with a timestamp to play"],["④","“Success” on a 3-second call where no one spoke","“Silent · 3s” and “Nothing learned”"],["⑤","Every step ticked green, no answer ever posted","“Nothing confirmed yet” grows into “No exact match” plus the closest option"]].map(x=>`<div class="bar"><i>${x[0]}</i><div class="dline w">${x[1]}</div><div class="dline n">${x[2]}</div></div>`).join("")}</div>
    <div style="margin-top:32px">${ph("aurora-16-after-row.png","After screens A, B, C, D, E in a row with callouts ①–⑤","21/8","submission.pdf p2")}</div>
@@ -1058,7 +1102,7 @@ const READERS={
    acadlens:"How I use AI tools in my process."}}
 };
 const TIMES={s30:"30 sec",m5:"5 min",m20:"20 min"};
-const TIME_HINT={s30:"One line per project and the short version.",m5:"Every project with a demo you can try.",m20:"Demos plus each project's key decisions inline."};
+const TIME_HINT={s30:"The short version: one line per project.",m5:"Every project with its cover and one line.",m20:"Each project's key decisions, right on the board."};
 
 /* ---------- state ---------- */
 let S={reader:"look",time:"m5",scope:[],ans:null,prev:null,ready:false};
@@ -1101,7 +1145,7 @@ function home(){
   </section>
   <div class="desk" id="board-top">
     <aside class="side" id="side" aria-label="Work and desk controls">
-      <div class="side-k"><div class="lbl">[ 01 ]</div><h2 class="wt">Work</h2><p class="hint wt-hint">Five projects you can try, not just read. Open the desk to tailor them to you or ask a question.</p>
+      <div class="side-k"><div class="lbl">[ 01 ]</div><h2 class="wt">Work</h2><p class="hint wt-hint">Five projects, each with a full case study. Open the desk to tailor the order to you or ask a question.</p>
         <button class="desk-tog" id="desk-tog" aria-expanded="false" aria-controls="side-body"><span>Tailor &amp; ask</span><i>+</i></button></div>
       <div class="side-body" id="side-body">
       <section>
@@ -1146,7 +1190,7 @@ async function boot(){
   log(0,`reader: ${READERS[S.reader].short} · time: ${TIMES[S.time]}`);await wait(260);
   for(let i=0;i<order().length;i++){
     const s=order()[i],sk=b.querySelectorAll(".skel")[0];
-    if(sk){sk.outerHTML=tileHTML(P(s),i);initDemo(b.querySelector(`[data-slug="${s}"] .demo`),s);}
+    if(sk){sk.outerHTML=tileHTML(P(s),i);}
     await wait(170);
   }
   b.querySelector(".tldr").outerHTML=tldrHTML();
@@ -1174,16 +1218,18 @@ function tldrHTML(){
 
 function tileHTML(p,i){
   const r=READERS[S.reader],[st,cls]=STATUS[p.slug],lens=r.lens[p.slug];
-  const decs=p.decisions.filter(d=>d.was).slice(0,4);
-  return `<article class="tile${i===0?" first":""}${r.dim.includes(p.slug)?" dim":""}${S.scope.includes(p.slug)?" scoped":""}" data-slug="${p.slug}" id="t-${p.slug}">
-    <header class="th"><span class="ix">${String(i+1).padStart(2,"0")}</span><h3>${esc(p.title)}</h3><span class="ty">${esc(p.type)} · ${esc(p.year)}</span><span class="st ${cls}">${st}</span></header>
-    <p class="role">Role · ${esc(p.facts.Role)} · ${esc(p.facts.Timeline)}</p>
-    ${lens?`<p class="lens">${esc(lens)}</p>`:""}
-    <div class="wn"><div class="w">${esc(p.was)}</div><div class="n">${esc(p.now)}</div></div>
-    <div class="demo" data-demo="${p.slug}"></div>
-    <div class="dcap"><span>Simplified demo · example data</span><span>${DEMO_CAP[p.slug]}</span></div>
-    <div class="decs"><h4>Key decisions</h4><ol>${decs.map((d,j)=>`<li><span>${j+1}</span><div><b>${esc(d.t)}.</b> ${esc(d.now)}</div></li>`).join("")}</ol></div>
-    <footer class="tf"><button class="scope-btn" data-scope="${p.slug}" aria-pressed="${S.scope.includes(p.slug)}">${S.scope.includes(p.slug)?"✓ In scope":"+ Scope"}</button><span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${p.demo?`<a class="btn" href="${p.demo}" target="_blank" rel="noopener">Live ↗</a>`:""}<a class="open" href="#${p.slug}">Open case study →</a></span></footer>
+  const decs=p.decisions.filter(d=>d.was).slice(0,4),on=S.scope.includes(p.slug);
+  return `<article class="tile${i===0?" first":""}${r.dim.includes(p.slug)?" dim":""}${on?" scoped":""}" data-slug="${p.slug}" id="t-${p.slug}">
+    <a class="cov" href="#${p.slug}" aria-label="Open the ${esc(p.title)} case study"><img src="assets/${esc(p.cover)}" alt="" loading="lazy" onload="this.parentNode.classList.add('has')" onerror="this.remove()"><span class="cph"><span class="phl">COVER</span><span class="f">assets/${esc(p.cover)}</span><small>${i===0?"21:9":"16:10"}</small></span></a>
+    <div class="tb">
+      <div class="tmeta"><span class="ix">${String(i+1).padStart(2,"0")}</span><span class="st ${cls}">${st}</span></div>
+      <h3><a href="#${p.slug}">${esc(p.title)}</a></h3>
+      <p class="ty">${esc(p.type)} · ${esc(p.year)} · ${esc(p.facts.Role)}</p>
+      <p class="one">${esc(p.now)}</p>
+      ${lens?`<p class="lens">${esc(lens)}</p>`:""}
+      <div class="decs"><h4>Key decisions</h4><ol>${decs.map((d,j)=>`<li><span>${j+1}</span><div><b>${esc(d.t)}.</b> ${esc(d.now)}</div></li>`).join("")}</ol></div>
+      <footer class="tf"><a class="go-case" href="#${p.slug}">Open case study <i>→</i></a><button class="scope-btn" data-scope="${p.slug}" aria-pressed="${on}">${on?"✓ In scope":"+ Scope"}</button></footer>
+    </div>
   </article>`;
 }
 
@@ -1191,7 +1237,6 @@ function renderBoard(animate){
   const b=$("#board");if(!b)return;
   const before={};if(animate)b.querySelectorAll(".tile").forEach(t=>before[t.dataset.slug]=t.getBoundingClientRect());
   b.innerHTML=tldrHTML()+order().map((s,i)=>tileHTML(P(s),i)).join("");
-  b.querySelectorAll(".demo").forEach(d=>initDemo(d,d.dataset.demo));
   bindTiles();
   if(animate&&!reduce){b.querySelectorAll(".tile").forEach(t=>{const a=before[t.dataset.slug];if(!a)return;const z=t.getBoundingClientRect();const dx=a.left-z.left,dy=a.top-z.top;if(!dx&&!dy)return;t.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:"none"}],{duration:420,easing:"cubic-bezier(.2,.7,.2,1)"});});}
   markCited();
