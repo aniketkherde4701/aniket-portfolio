@@ -682,6 +682,8 @@ body:not(.desk-open) .scope-btn{display:none}
 .scard .full:hover{color:var(--ink)}
 .gal.phones figure .ph{width:100%}
 @media (max-width:900px){.gal.phones{grid-template-columns:1fr 1fr}}
+
+.vid{margin:36px auto 0;max-width:340px}.vid video{display:block;width:100%;height:auto;border-radius:22px;border:1px solid var(--line);background:#000;box-shadow:0 18px 50px -24px rgba(0,0,0,.35)}
 </style>
 </head>
 <body>
@@ -1051,7 +1053,7 @@ CASES.aurora={
   {k:"html",html:AX("11","Before → After","Every numbered problem, answered.","",
    `<div class="ba">${[["①","INFLIX ranked #1 by AI score, contradicting its own call","No #1 badges; D shows “Closest”, not a rank"],["②","Green ✓ “Single unit available”, never said on the call","Teal chips were heard on the call; peach “?” chips weren't"],["③","The call's evidence hidden two taps deep","The shop's own words on the lead, with a timestamp to play"],["④","“Success” on a 3-second call where no one spoke","“Silent · 3s” and “Nothing learned”"],["⑤","Every step ticked green, no answer ever posted","“Nothing confirmed yet” grows into “No exact match” plus the closest option"]].map(x=>`<div class="bar"><i>${x[0]}</i><div class="dline w">${x[1]}</div><div class="dline n">${x[2]}</div></div>`).join("")}</div>
    <div style="margin-top:32px">${ph("aurora-16-after-row.png","After screens A, B, C, D, E in a row with callouts ①–⑤","21/8","submission.pdf p2")}</div>
-   <div style="margin-top:20px">${ph("aurora-17-walkthrough.mp4","Prototype walkthrough: embed the video or a GIF","16/9","Drive walkthrough video / Figma prototype")}</div>`)},
+   <div class="vid"><video controls playsinline preload="metadata" poster="assets/aurora-17-poster.jpg" width="354" height="766"><source src="assets/aurora-17-walkthrough.mp4" type="video/mp4"></video><p class="cap" style="text-align:center">Prototype walkthrough, about 1 minute.</p></div>`)},
   {k:"html",html:AX("12","Decisions and what I got wrong","Trade-offs, changed minds and stated limits.","",
    `<div class="cards" style="--n:2">
     <div class="card"><span class="tg">Trade-off</span><h3>Fewer, verified results instead of 109 ranked shops</h3><p>It looks less impressive, but it's more trustworthy, and trust is what makes someone actually call the shop.</p></div>
