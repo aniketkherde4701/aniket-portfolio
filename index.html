@@ -339,6 +339,34 @@ footer.foot{max-width:1440px;margin:0 auto;padding:20px var(--gutr) 28px var(--g
 .pn b{display:block;font:600 24px/1.1 var(--f-disp);font-stretch:108%;margin-top:6px}
 @media (max-width:900px){.cs-hero,.cs-try{grid-template-columns:1fr;gap:20px}.cs-sec{grid-template-columns:1fr;gap:12px;padding:28px 0}.cs-sec>.lbl{position:static}.dec{grid-template-columns:1fr}.crumb .lbl{display:none}.pn{grid-template-columns:1fr}.pn a:last-child{text-align:left}}
 
+/* hero v2: full viewport, name first */
+.hero{min-height:calc(100svh - 52px);align-content:center;align-items:center;padding-top:48px;padding-bottom:48px}
+.hero .name{margin:18px 0 0;font:500 clamp(56px,11vw,168px)/.88 var(--f-disp);font-stretch:118%;letter-spacing:-.05em}
+.hero .tagline{margin:22px 0 0;font:400 clamp(22px,2.4vw,34px)/1.2 var(--f-disp);font-stretch:104%;letter-spacing:-.02em;max-width:24ch;text-wrap:balance;color:var(--ink)}
+.hero .tagline em{font-style:normal;color:var(--acc)}
+.hero .tagline .gx{display:block;font-size:.7em;color:var(--del);text-decoration:line-through;text-decoration-thickness:2px;margin-bottom:.3em}
+.hero .tagline .gx[hidden]{display:none}
+.hero .sub{font-size:16px;margin-top:14px}
+.hero-act{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:24px}
+.hero-act .gen{margin-top:0}
+/* collapsible Work panel */
+.side-k{padding:4px 0 0}
+.side h2.wt{margin:8px 0 0;font:500 28px/1.05 var(--f-disp);font-stretch:110%;letter-spacing:-.025em;color:var(--ink);text-transform:none;display:block}
+.side h2.wt span::before,.side h2.wt span::after{content:none}
+.wt-hint{margin:10px 0 0}
+.desk-tog{margin-top:18px;width:100%;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:8px;padding:11px 14px;font:600 13px/1 var(--f-body)}
+.desk-tog i{font:500 16px/1 var(--f-mono);font-style:normal}
+.side-body{display:none;margin-top:22px;min-width:0}.side>*{min-width:0}
+.side.expanded .side-body{display:block;animation:in .25s ease both}
+.side.expanded .side-k .lbl,.side.expanded .wt,.side.expanded .wt-hint{display:none}
+.side.expanded .desk-tog{margin-top:0;background:var(--panel);color:var(--ink);border-color:var(--line)}
+@media (max-width:900px){
+ .side{padding-bottom:20px}
+ body.home:not(.desk-open) .dock{display:none}
+ body.home:not(.desk-open){padding-bottom:0}
+ .hero{min-height:calc(100svh - 52px)}
+}
+
 /* ===== full case studies ===== */
 .cx{--pa:#6b4dff;--pa-bg:color-mix(in srgb,var(--pa) 10%,var(--panel));--pa-line:color-mix(in srgb,var(--pa) 32%,var(--line))}
 .cx.nolano{--pa:#7c5cf0} .cx.terralay{--pa:#2e7d55}
@@ -721,11 +749,11 @@ const HERO=[
 
 /* Scripted answers, matched to selected or typed text. */
 const ANSWERS=[
- {q:"How does Aniket design for AI trust?",kw:["trust","ai","agent","safe","diff","review","scope","edit","shows its work","corrected","sigma","aurora","status"],items:[["sigma","Scope, then review","In Sigma, selected cells scope what the AI can write, every change is marked by type, and nothing is permanent until you keep it."],["aurora","Statuses that tell the truth","In Aurora, a silent 3-second call shows as \"Silent · 3s\", not Success."]]},
+ {q:"How do you design for AI trust?",kw:["trust","ai","agent","safe","diff","review","scope","edit","shows its work","corrected","sigma","aurora","status"],items:[["sigma","Scope, then review","In Sigma, selected cells scope what the AI can write, every change is marked by type, and nothing is permanent until you keep it."],["aurora","Statuses that tell the truth","In Aurora, a silent 3-second call shows as \"Silent · 3s\", not Success."]]},
  {q:"What complex B2B work is there?",kw:["b2b","saas","complex","dashboard","data","gis","workflow","role","organisation","nolano","terralay","forecast","construction"],items:[["nolano","Separate data from execution","A Datasets library apart from the Playground, with API keys at the top level."],["terralay","Organisations, roles, history","Three roles, a status system and Project History for accountability."]]},
- {q:"Can Aniket build, not just design?",kw:["build","code","prototype","engineer","technical","copilot","acadlens","rag","lovable","claude"],items:[["acadlens","AcadLens","A research agent built by directing Claude Code: cited answers, or an explicit refusal."],["nolano","Lovable prototype","The first Nolano dashboard was built in Lovable from Figma designs."]]},
+ {q:"Can you build, not just design?",kw:["build","code","prototype","engineer","technical","copilot","acadlens","rag","lovable","claude"],items:[["acadlens","AcadLens","A research agent built by directing Claude Code: cited answers, or an explicit refusal."],["nolano","Lovable prototype","The first Nolano dashboard was built in Lovable from Figma designs."]]},
  {q:"What didn't work?",kw:["launch","outcome","metric","result","users","impact","never","hypothesis","demand","founding","nolano ai"],items:[["nolano","Nolano never launched","The product team closed in July 2026, so there's no usage data."],["sigma","Sigma: internal test only","A few people used the prototype. A signal, not proof."]]},
- {q:"What's the architecture background?",kw:["architecture","iit","kharagpur","bim","villa","alexis","arth","spatial"],items:[["", "Architecture first","Aniket studied architecture at IIT Kharagpur and coordinated BIM models to LOD 400. That's where working inside hard technical constraints with engineers started."]]}
+ {q:"What's the architecture background?",kw:["architecture","iit","kharagpur","bim","villa","alexis","arth","spatial"],items:[["", "Architecture first","I studied architecture at IIT Kharagpur and coordinated BIM models to LOD 400. That's where working inside hard technical constraints with engineers started."]]}
 ];
 
 const $=s=>document.querySelector(s),app=$("#app");
@@ -995,7 +1023,7 @@ CASES.aurora={
    `<ul class="xl g" style="max-width:70ch;font-size:16px">${["Test the answer block with 5 people who search for local items, and see whether they trust “heard” over “not checked”.","Bring the honest outcome labels (“Silent”, “Menu only”, “Did not connect”) into call summaries everywhere.","Raise the “pretends to be a person” behaviour with the AI team. It's a trust problem the UI can't fix."].map(x=>`<li>${x}</li>`).join("")}</ul>
    ${TODO("Anything to add after feedback from the company.")}`,true)},
   {k:"html",html:AX("15","Reflection","What using it for real taught me.","",
-   TODO("3–4 sentences in Aniket's own words: what using the product for real taught that screenshots wouldn't have; how separating evidence from interpretation changed the findings; what you'd do differently with more time.")+
+   TODO("3–4 sentences in your own words: what using the product for real taught that screenshots wouldn't have; how separating evidence from interpretation changed the findings; what you'd do differently with more time.")+
    `<div class="links"><span class="cx-k">Links</span>${["Figma prototype","Figma file","Walkthrough video"].map(x=>`<span class="lk">${x} <em>[TODO: link]</em></span>`).join("")}</div>`)}
  ]};
 
@@ -1007,7 +1035,7 @@ const READERS={
  ai:{label:"Hiring for AI product",short:"AI product hiring",order:["sigma","aurora","acadlens","nolano","terralay"],dim:["terralay"],lens:{
    sigma:"Closest to your problem: making AI edits safe enough to accept.",
    aurora:"Agent UX: the agent reports what it learned, not what it did.",
-   acadlens:"Proof Aniket builds: a cited answer, or an honest refusal.",
+   acadlens:"Proof I build, not just design: a cited answer, or an honest refusal.",
    nolano:"One AI product, two audiences: business teams and developers.",
    terralay:"Less relevant for you: B2B GIS, no AI in it."}},
  b2b:{label:"Hiring for B2B SaaS",short:"B2B SaaS hiring",order:["nolano","terralay","sigma","aurora","acadlens"],dim:["acadlens"],lens:{
@@ -1027,7 +1055,7 @@ const READERS={
    aurora:"Evidence first: a real search, a rejected idea and stated limits.",
    nolano:"Options that were rejected, and why.",
    terralay:"A feature added outside the brief, with the reason.",
-   acadlens:"How Aniket uses AI tools in the process."}}
+   acadlens:"How I use AI tools in my process."}}
 };
 const TIMES={s30:"30 sec",m5:"5 min",m20:"20 min"};
 const TIME_HINT={s30:"One line per project and the short version.",m5:"Every project with a demo you can try.",m20:"Demos plus each project's key decisions inline."};
@@ -1058,9 +1086,10 @@ function home(){
   <section class="hero">
     <div>
       <div class="lbl">[ portfolio · 2026 ] <b>AI-native product designer</b></div>
-      <h1 id="h1"><span class="gx" hidden>Product designer who creates beautiful, user-centric interfaces.</span>Designing AI that <em>shows its work</em>, stays in scope and can be corrected.</h1>
-      <p class="sub">I was the founding product designer at Nolano AI, and I trained as an architect at IIT Kharagpur. This page is a small agent: tell it who you are and how long you have, and it rearranges the work for you.</p>
-      <button class="gen" id="gen" aria-pressed="false">Show the generic version</button>
+      <h1 class="name">Aniket Kherde</h1>
+      <p class="tagline" id="h1"><span class="gx" hidden>Product designer who creates beautiful, user-centric interfaces.</span>I design AI that <em>shows its work</em>, stays in scope and can be corrected.</p>
+      <p class="sub">Founding product designer at Nolano AI. Trained as an architect at IIT Kharagpur.</p>
+      <div class="hero-act"><a class="open" href="#" data-go="board">See the work ↓</a><button class="gen" id="gen" aria-pressed="false">Show the generic version</button></div>
     </div>
     <dl class="meta">
       <div><dt>Now</dt><dd>Open to full-time roles</dd></div>
@@ -1071,14 +1100,17 @@ function home(){
     </dl>
   </section>
   <div class="desk" id="board-top">
-    <aside class="side" aria-label="Desk controls">
+    <aside class="side" id="side" aria-label="Work and desk controls">
+      <div class="side-k"><div class="lbl">[ 01 ]</div><h2 class="wt">Work</h2><p class="hint wt-hint">Five projects you can try, not just read. Open the desk to tailor them to you or ask a question.</p>
+        <button class="desk-tog" id="desk-tog" aria-expanded="false" aria-controls="side-body"><span>Tailor &amp; ask</span><i>+</i></button></div>
+      <div class="side-body" id="side-body">
       <section>
-        <h2><span>01 Who's reading</span></h2>
+        <h2><span>Who's reading</span></h2>
         <div class="readers" role="group" aria-label="Who's reading">${Object.entries(READERS).map(([k,r])=>`<button class="pill" data-r="${k}" aria-pressed="${k===S.reader}">${r.label}</button>`).join("")}</div>
         <p class="hint" id="rhint"></p>
       </section>
       <section>
-        <h2><span>02 Time you have</span></h2>
+        <h2><span>Time you have</span></h2>
         <div class="seg" role="group" aria-label="Time you have">${Object.entries(TIMES).map(([k,v])=>`<button data-t="${k}" aria-pressed="${k===S.time}">${v}</button>`).join("")}</div>
         <p class="hint" id="thint">${TIME_HINT[S.time]}</p>
       </section>
@@ -1087,6 +1119,7 @@ function home(){
         <details class="log" id="log" open><summary>Run log</summary><ol></ol></details>
         <p class="small">Scripted for now. A model with an API key can replace the script later without changing the layout.</p>
       </section>
+      </div>
     </aside>
     <main class="main">
       <div class="bhead"><div class="lbl" id="blabel"></div><div class="lbl" id="bcount"></div></div>
@@ -1097,6 +1130,7 @@ function home(){
   ${appendix()}`;
   $("#dock").innerHTML="";
   renderAsk();
+  $("#desk-tog").onclick=()=>{const s=$("#side"),o=!s.classList.contains("expanded");s.classList.toggle("expanded",o);document.body.classList.toggle("desk-open",o);const t=$("#desk-tog");t.setAttribute("aria-expanded",o);t.querySelector("span").textContent=o?"Close desk":"Tailor & ask";t.querySelector("i").textContent=o?"−":"+";if(o&&innerWidth<=900)renderAsk();};
   document.querySelectorAll(".pill").forEach(b=>b.onclick=()=>setReader(b.dataset.r));
   document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>setTime(b.dataset.t));
   $("#gen").onclick=e=>{const on=e.currentTarget.getAttribute("aria-pressed")!=="true";e.currentTarget.setAttribute("aria-pressed",on);e.currentTarget.textContent=on?"Hide the generic version":"Show the generic version";$("#h1 .gx").hidden=!on;};
@@ -1132,7 +1166,7 @@ function labels(){
 function tldrHTML(){
   const o=order();
   return `<div class="tldr"><div class="lbl">[ if you only read this ]</div><ol>
-   <li><span>Aniket designs how AI shows its work and gets corrected: <a href="#sigma">Sigma</a>, <a href="#aurora">Aurora</a>.</span></li>
+   <li><span>I design how AI shows its work and gets corrected: <a href="#sigma">Sigma</a>, <a href="#aurora">Aurora</a>.</span></li>
    <li><span>Complex B2B surfaces: data, roles, API access, history: <a href="#nolano">Nolano</a>, <a href="#terralay">Terralay</a>.</span></li>
    <li><span>Prototypes in code to test ideas: <a href="#acadlens">AcadLens</a>.</span></li>
    <li><span>Every status is labelled. None of this has launched to paying users yet.</span></li></ol></div>`;
@@ -1188,10 +1222,10 @@ function setTime(k){
 
 /* ---------- ask ---------- */
 function askHTML(dock){
-  return `<h2 ${dock?'hidden':''}><span>03 Ask the desk</span></h2>
+  return `<h2 ${dock?'hidden':''}><span>Ask the desk</span></h2>
   <div class="sheet" id="sheet-${dock?1:0}">${S.ans?answerHTML(S.ans):""}${dock?"":sugHTML()}</div>
   <div class="box"><div class="scopes">${S.scope.length?S.scope.map(s=>`<span class="sc">${esc(P(s).title)}<button aria-label="Remove ${esc(P(s).title)} from scope" data-unscope="${s}">×</button></span>`).join(""):`<span class="sc all">Scope: all work</span>`}</div>
-  <form><label class="sr" for="q${dock?1:0}">Ask about Aniket's work</label><input id="q${dock?1:0}" autocomplete="off" placeholder="${S.scope.length?"Ask about the scoped work":"Ask about Aniket's work"}"><button class="go">Ask</button></form></div>
+  <form><label class="sr" for="q${dock?1:0}">Ask about my work</label><input id="q${dock?1:0}" autocomplete="off" placeholder="${S.scope.length?"Ask about the scoped work":"Ask about my work"}"><button class="go">Ask</button></form></div>
   ${dock?"":`<p class="small">Answers come only from these case studies. Add “+ Scope” on a tile to narrow them.</p>`}`;
 }
 function sugHTML(){return `<div class="sugg">${ANSWERS.slice(0,4).map((a,i)=>`<button data-sug="${i}">${esc(a.q)}</button>`).join("")}</div>`}
@@ -1231,7 +1265,7 @@ function answerHTML(a){
   let body;
   if(a.items.length) body=a.items.map(([s,t,b])=>`<p class="it"><b>${esc(t)}</b>${esc(b)}${s?`<button class="cite" data-cite="${s}">${esc(P(s).title)}</button>`:""}</p>`).join("");
   else if(a.matched&&a.scoped) body=`<p class="none">Nothing in the scoped work answers that. Remove a scope chip to search everything.</p>`;
-  else body=`<p class="none">The case studies don't cover that, so I won't guess. Ask Aniket directly: <a href="${esc(GMAIL)}" target="_blank" rel="noopener">${EMAIL}</a></p>`;
+  else body=`<p class="none">The case studies don't cover that, so this desk won't guess. Ask me directly: <a href="${esc(GMAIL)}" target="_blank" rel="noopener">${EMAIL}</a></p>`;
   return `<div class="answer"><div class="q">${esc(a.q)}</div>${body}<button class="btn" data-clear>Clear</button></div>`;
 }
 function markCited(){const c=S.ans?S.ans.items.map(i=>i[0]):[];document.querySelectorAll(".tile").forEach(t=>t.classList.toggle("cited",c.includes(t.dataset.slug)));}
@@ -1344,7 +1378,7 @@ function demoCopilot(el){
 /* ---------- appendix ---------- */
 function appendix(){
   return `<div class="appx" id="about">
-   <section class="about"><div class="k"><div class="lbl">[ 04 ]</div><h2>About</h2></div><div class="v">
+   <section class="about"><div class="k"><div class="lbl">[ 02 ]</div><h2>About</h2></div><div class="v">
     <p><b>I trained as an architect at IIT Kharagpur</b> (B.Arch 2025), where I learned to work inside hard technical constraints with engineers: BIM coordination to LOD 400 and two award-finalist villas in Bali.</p>
     <p><b>Then I spent 15 months as the only designer at Nolano AI</b>, an 8-person startup, taking an AI spreadsheet and a forecasting platform from first wireframes to working prototypes used in demos.</p>
     <p>The problem I keep coming back to: AI that shows its work, stays inside its scope and can be corrected. I prototype in code to test ideas before they reach engineers.</p>
@@ -1354,10 +1388,10 @@ function appendix(){
      <div><b>Prototyping in code</b><span>Lovable, Claude Code; reviewed, tested, shipped</span><em>Nolano · AcadLens</em></div>
      <div><b>Dense tools on small screens</b><span>Sheet and chat on one phone screen</span><em>Sigma</em></div>
     </div></div></section>
-   <section><div class="k"><div class="lbl">[ 05 ]</div><h2>Experience</h2></div><div class="v"><div class="xp">${EXPERIENCE.map(([co,role,d,t])=>`<div><time>${esc(t)}</time><div><b>${esc(co)}</b> · <i>${esc(role)}</i><p>${esc(d)}</p></div></div>`).join("")}</div></div></section>
-   <section><div class="k"><div class="lbl">[ 06 ]</div><h2>What people say</h2></div><div class="v"><div class="quotes">${QUOTES.map(([i,n,r,q])=>`<figure><blockquote>“${esc(q)}”</blockquote><figcaption><b>${esc(n)}</b>${esc(r)}</figcaption></figure>`).join("")}</div></div></section>
-   <section><div class="k"><div class="lbl">[ 07 ]</div><h2>Other work</h2></div><div class="v"><p style="margin:0 0 14px;color:var(--ink2)">All of these live on Behance. <a href="https://www.behance.net/aniket_kherde" target="_blank" rel="noopener" style="color:var(--ink);font-weight:600">See the full Behance profile ↗</a></p><div class="other">${OTHER.map(([t,u])=>u?`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`:`<span>${esc(t)} · on request</span>`).join("")}</div></div></section>
-   <section class="contact" id="contact"><div class="k"><div class="lbl">[ 08 ]</div><h2>Contact</h2></div><div class="v"><a class="big" href="${esc(GMAIL)}" target="_blank" rel="noopener">${EMAIL}</a><div class="row"><a class="btn pri" href="${CV}" target="_blank" rel="noopener">CV ↗</a><a class="btn" href="${LINKEDIN}" target="_blank" rel="noopener">LinkedIn ↗</a><a class="btn" href="https://www.behance.net/aniket_kherde" target="_blank" rel="noopener">Behance ↗</a><a class="btn" href="https://github.com/aniketkherde4701" target="_blank" rel="noopener">GitHub ↗</a></div></div></section>
+   <section><div class="k"><div class="lbl">[ 03 ]</div><h2>Experience</h2></div><div class="v"><div class="xp">${EXPERIENCE.map(([co,role,d,t])=>`<div><time>${esc(t)}</time><div><b>${esc(co)}</b> · <i>${esc(role)}</i><p>${esc(d)}</p></div></div>`).join("")}</div></div></section>
+   <section><div class="k"><div class="lbl">[ 04 ]</div><h2>What people say</h2></div><div class="v"><div class="quotes">${QUOTES.map(([i,n,r,q])=>`<figure><blockquote>“${esc(q)}”</blockquote><figcaption><b>${esc(n)}</b>${esc(r)}</figcaption></figure>`).join("")}</div></div></section>
+   <section><div class="k"><div class="lbl">[ 05 ]</div><h2>Other work</h2></div><div class="v"><p style="margin:0 0 14px;color:var(--ink2)">All of these live on Behance. <a href="https://www.behance.net/aniket_kherde" target="_blank" rel="noopener" style="color:var(--ink);font-weight:600">See the full Behance profile ↗</a></p><div class="other">${OTHER.map(([t,u])=>u?`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`:`<span>${esc(t)} · on request</span>`).join("")}</div></div></section>
+   <section class="contact" id="contact"><div class="k"><div class="lbl">[ 06 ]</div><h2>Contact</h2></div><div class="v"><a class="big" href="${esc(GMAIL)}" target="_blank" rel="noopener">${EMAIL}</a><div class="row"><a class="btn pri" href="${CV}" target="_blank" rel="noopener">CV ↗</a><a class="btn" href="${LINKEDIN}" target="_blank" rel="noopener">LinkedIn ↗</a><a class="btn" href="https://www.behance.net/aniket_kherde" target="_blank" rel="noopener">Behance ↗</a><a class="btn" href="https://github.com/aniketkherde4701" target="_blank" rel="noopener">GitHub ↗</a></div></div></section>
   </div>
   <footer class="foot"><span>Aniket Kherde · 2026</span><span>Demos are simplified and use example data. Statuses are as of Nov 2026.</span></footer>`;
 }
