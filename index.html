@@ -686,6 +686,8 @@ body:not(.desk-open) .scope-btn{display:none}
 .vid{margin:36px auto 0;max-width:340px}.vid video{display:block;width:100%;height:auto;border-radius:22px;border:1px solid var(--line);background:#000;box-shadow:0 18px 50px -24px rgba(0,0,0,.35)}
 
 .ph.has{cursor:zoom-in}.lb{position:fixed;inset:0;z-index:1000;display:none;place-items:center;padding:4vh 4vw;background:rgba(10,10,9,.88);cursor:zoom-out}.lb.on{display:grid}.lb img{max-width:100%;max-height:92vh;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}.lbx{position:absolute;top:14px;right:18px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:24px;cursor:pointer}
+
+a.lk{color:var(--ink);text-decoration:none}a.lk:hover{border-color:var(--ink)}
 </style>
 </head>
 <body>
@@ -717,7 +719,7 @@ const PROJECTS = [
    {t:"Nothing is permanent until you keep it",was:"No clear way to understand or reverse what the AI did.",now:"Review mode lists every change by type. Per-change accept is designed, collapsed by default; Keep all has a one-step undo.",img:"sigma-review-mode.png"},
    {t:"Sheet and chat on one phone screen",was:"Desktop split: sheet left, chat right. That doesn't fit a phone.",now:"The sheet keeps the top of the screen and the chat grows up from the bottom, so you watch changes land while typing.",img:"sigma-mobile.png"}
   ],
-  outcome:["Sigma reached a working prototype. A few people used it in an internal test, and their feedback was encouraging, but that's a signal, not proof. Nolano closed its product team in July 2026, so Sigma never launched."],
+  outcome:["Sigma reached a working prototype. A few people used it in an internal test, and their feedback was encouraging, but that's a signal, not proof."],
   next:["Give every change type a second cue besides colour.","Show where numbers pulled from the web came from.","Test review mode with analysts on their own data."]},
  {slug:"aurora",big:true,title:"Aurora",type:"AI calling agent",year:"2026",
   was:"The agent reports activity: 115 calls, no answer.",now:"One answer that grows only from what shops actually said.",
@@ -736,7 +738,7 @@ const PROJECTS = [
  {slug:"nolano",title:"Nolano",type:"AI forecasting",year:"2025",
   was:"One cluttered dashboard for three kinds of users.",now:"A clear path to a forecast for each of them.",
   summary:"A time-series forecasting API and dashboard. I rebuilt the interface so business teams and developers could each get to a forecast fast.",
-  facts:{Role:"Founding product designer",Timeline:"2.5-month redesign, 2025",Team:"8-person AI startup",Status:"Working product, never launched"},
+  facts:{Role:"Founding product designer",Timeline:"2.5-month redesign, 2025",Team:"8-person AI startup",Status:"Working product, used in demos"},
   cover:"nolano-cover.png",
   problem:["The first version tried to serve analysts, developers and first-time evaluators with one layout. It showed infrastructure metrics instead of forecasts and hid forecasting below the fold."],
   decisions:[
@@ -745,7 +747,7 @@ const PROJECTS = [
    {t:"A split-pane Playground",was:"Settings and chart competing for attention.",now:"Chart left, settings right: every change shows its effect in place.",img:"nolano-playground.png",rejectedOpts:[["Dashboard-first","Fast to scan, overwhelming for new users."],["Step-by-step wizard","Guided, but we expected returning users to feel trapped."]]},
    {t:"API access as a first-class feature",was:"API keys buried in settings: 4+ clicks.",now:"Keys and usage in the top-level navigation: 2 clicks."}
   ],
-  outcome:["A working product used in investor and customer demos; the company recorded about $1K/month in pre-launch demand. Nolano closed its product team in July 2026, so it never launched and there's no usage data.","The metric I'd have watched: share of new sign-ups who run a first forecast in their first session."],next:[]},
+  outcome:["A working product used in investor and customer demos; the company recorded about $1K/month in pre-launch demand.","The metric I'd have watched: share of new sign-ups who run a first forecast in their first session."],next:[]},
  {slug:"terralay",title:"Terralay",type:"GIS for construction",year:"2026",
   was:"A flat list of projects, no roles, no history.",now:"Organisations, three roles and a full project history.",
   summary:"A GIS project-management platform for construction companies, redesigned around how construction firms are actually organised.",
@@ -800,7 +802,7 @@ const ANSWERS=[
  {q:"How do you design for AI trust?",kw:["trust","ai","agent","safe","diff","review","scope","edit","shows its work","corrected","sigma","aurora","status"],items:[["sigma","Scope, then review","In Sigma, selected cells scope what the AI can write, every change is marked by type, and nothing is permanent until you keep it."],["aurora","Statuses that tell the truth","In Aurora, a silent 3-second call shows as \"Silent · 3s\", not Success."]]},
  {q:"What complex B2B work is there?",kw:["b2b","saas","complex","dashboard","data","gis","workflow","role","organisation","nolano","terralay","forecast","construction"],items:[["nolano","Separate data from execution","A Datasets library apart from the Playground, with API keys at the top level."],["terralay","Organisations, roles, history","Three roles, a status system and Project History for accountability."]]},
  {q:"Can you build, not just design?",kw:["build","code","prototype","engineer","technical","copilot","acadlens","rag","lovable","claude"],items:[["acadlens","AcadLens","A research agent built by directing Claude Code: cited answers, or an explicit refusal."],["nolano","Lovable prototype","The first Nolano dashboard was built in Lovable from Figma designs."]]},
- {q:"What didn't work?",kw:["launch","outcome","metric","result","users","impact","never","hypothesis","demand","founding","nolano ai"],items:[["nolano","Nolano never launched","The product team closed in July 2026, so there's no usage data."],["sigma","Sigma: internal test only","A few people used the prototype. A signal, not proof."]]},
+ {q:"What didn't work?",kw:["launch","outcome","metric","result","users","impact","never","hypothesis","demand","founding","nolano ai"],items:[["sigma","Sigma: internal test only","A few people used the prototype. A signal, not proof."]]},
  {q:"What's the architecture background?",kw:["architecture","iit","kharagpur","bim","villa","alexis","arth","spatial"],items:[["", "Architecture first","I studied architecture at IIT Kharagpur and coordinated BIM models to LOD 400. That's where working inside hard technical constraints with engineers started."]]}
 ];
 
@@ -831,7 +833,7 @@ const R={
  decision:s=>SEC(`<div class="split${s.rev?" rev":""}"><div class="body"><span class="cx-k">${s.n} — ${esc(s.lab)}</span><h2>${s.h}</h2><div style="margin-top:18px">${s.p.map(x=>`<p>${x}</p>`).join("")}</div>${s.stats?`<div class="stats">${s.stats.map(x=>`<div><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>`:""}${s.ba?`<div class="bachips"><span class="b">Before: ${esc(s.ba[0])}</span><span class="a">After: ${esc(s.ba[1])}</span></div>`:""}${s.q?`<p class="pq box">“${esc(s.q)}”</p>`:""}</div><div>${ph(s.img[0],s.img[1],s.img[2]||"16/10")}${s.img[3]?`<p class="cap">${esc(s.img[3])}</p>`:""}</div></div>${s.after||""}`,s.tint),
  html:s=>s.html,
  centered:s=>SEC(H(s.n,s.lab,s.h,s.lead,1)+(s.html||""),s.tint),
- outcome:s=>SEC(H(s.n,s.lab,s.h,s.lead,1)+`<div class="out-stats" style="margin-top:40px">${s.stats.map(x=>`<div><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>${s.quotes?`<div class="tq">${s.quotes.map(x=>`<figure><blockquote>“${esc(x[0])}”</blockquote><figcaption>${esc(x[1])}</figcaption></figure>`).join("")}</div>${s.qnote?`<p class="foot-note">${esc(s.qnote)}</p>`:""}`:""}${s.reflect?`<p class="pq">“${esc(s.reflect)}”</p>`:""}<div class="honest">${s.honest}</div>`,true)
+ outcome:s=>SEC(H(s.n,s.lab,s.h,s.lead,1)+`<div class="out-stats" style="margin-top:40px">${s.stats.map(x=>`<div><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>${s.quotes?`<div class="tq">${s.quotes.map(x=>`<figure><blockquote>“${esc(x[0])}”</blockquote><figcaption>${esc(x[1])}</figcaption></figure>`).join("")}</div>${s.qnote?`<p class="foot-note">${esc(s.qnote)}</p>`:""}`:""}${s.reflect?`<p class="pq">“${esc(s.reflect)}”</p>`:""}${s.honest?`<div class="honest">${s.honest}</div>`:""}`,true)
 };
 
 const CASES={
@@ -866,7 +868,7 @@ const CASES={
     stats:[["Prototype","Working, tested internally at Nolano"],["4 moments","Scope, execute, review, keep: one loop"],["2 surfaces","Desktop and mobile, one colour system"]],
     quotes:[["Claude for spreadsheet. I spend less time fixing spreadsheets and more time analysing.","Ashutosh Kumar Verma · Product Manager"],["No menus, no learning curve, just type what you need and Sigma executes.","Ruby Keller · UX Designer"],["It turns me into a pro Excel user. Love the UI/UX.","Irina Rish · Hedge Fund Founder"]],
     qnote:"From an internal test of the first working prototype.",
-    honest:"<b>What happened next:</b> Nolano closed its product team in July 2026, so Sigma never launched and there's no usage data. Next I'd add a second cue besides colour for each change type, show where numbers pulled from the web came from, and test Review mode with analysts on their own data."}
+    honest:"<b>What I'd do next:</b> I'd add a second cue besides colour for each change type, show where numbers pulled from the web came from, and test Review mode with analysts on their own data."}
   ]},
  nolano:{src:"Nolano case study.png",tag:"Founding designer · SaaS · 2.5 months",h:"Making AI forecasting accessible to non-technical users.",
   lead:"Nolano needed to go from a cluttered prototype to a product real users could trust. Here's how the interface was rebuilt from the ground up.",
@@ -905,7 +907,7 @@ const CASES={
    {k:"outcome",n:"06",lab:"Outcome",h:"Demoed, not launched.",
     stats:[["~$1K MRR","Pre-launch demand recorded by the company"],["Live demos","Used with investors and customers"],["3 steps","To a first forecast, down from 5+"]],
     reflect:"The product went from a feature showcase to a task-oriented platform, modular enough to grow without a full rebuild.",
-    honest:"<b>What happened next:</b> Nolano closed its product team in July 2026 to focus on research, so the product never launched and has been taken down. There's no usage data. The metric I'd have watched: the share of new sign-ups who run a first forecast in their first session."}
+    honest:""}
   ]},
  terralay:{src:"terralay case study.png",tag:"Freelance redesign · Construction tech · Apr–Jun 2026",h:"Redesigning a GIS platform for construction teams who can't afford confusion.",
   lead:"Terralay existed but wasn't working. Raya Design Studio brought me in to redesign the product, define the user system and design features that didn't exist yet.",
@@ -1072,17 +1074,16 @@ CASES.aurora={
    <ul class="xl r" style="max-width:70ch">${["The offline state assumes calls continue on Aurora's side. My search kept running with the app closed, but I didn't observe the app offline.","The ranking's basis is inferred from the AI overview, not confirmed.","Discovery, calling and ranking are unchanged."].map(x=>`<li>${x}</li>`).join("")}</ul>`,true)},
   {k:"html",html:AX("13","Measuring success","One metric that shows trust turning into action.","",
    `<div class="metric"><span class="cx-k">Primary metric</span><b>Share of finished searches where the user taps “Call shop” on a result.</b><p>The job of a search is to get someone to a shop that has the item. A tap on Call shop shows the user trusted the answer enough to act on it, which counting screens viewed or calls placed can't show.</p></div>
-   ${TODO("Add guardrail metrics if wanted, e.g. time to first lead, or the share of searches ended by the user before any answer.")}`)},
+   <h3 class="ax-h3">Guardrails</h3><ul class="xl g" style="max-width:70ch">${["Time to first lead: an answer that grows should show something useful sooner, not later.","Share of searches the user ends before any answer: if this rises, the honest empty states are reading as failure."].map(x=>`<li>${x}</li>`).join("")}</ul>`)},
   {k:"html",html:AX("14","What I'd do next","Next steps.","",
-   `<ul class="xl g" style="max-width:70ch;font-size:16px">${["Test the answer block with 5 people who search for local items, and see whether they trust “heard” over “not checked”.","Bring the honest outcome labels (“Silent”, “Menu only”, “Did not connect”) into call summaries everywhere.","Raise the “pretends to be a person” behaviour with the AI team. It's a trust problem the UI can't fix."].map(x=>`<li>${x}</li>`).join("")}</ul>
-   ${TODO("Anything to add after feedback from the company.")}`,true)},
+   `<ul class="xl g" style="max-width:70ch;font-size:16px">${["Test the answer block with 5 people who search for local items, and see whether they trust “heard” over “not checked”.","Bring the honest outcome labels (“Silent”, “Menu only”, “Did not connect”) into call summaries everywhere.","Raise the “pretends to be a person” behaviour with the AI team. It's a trust problem the UI can't fix."].map(x=>`<li>${x}</li>`).join("")}</ul>`,true)},
   {k:"html",html:AX("15","Reflection","What using it for real taught me.","",
-   TODO("3–4 sentences in your own words: what using the product for real taught that screenshots wouldn't have; how separating evidence from interpretation changed the findings; what you'd do differently with more time.")+
-   `<div class="links"><span class="cx-k">Links</span>${["Figma prototype","Figma file","Walkthrough video"].map(x=>`<span class="lk">${x} <em>[TODO: link]</em></span>`).join("")}</div>`)}
+   `<div class="reflect" style="max-width:70ch;font-size:17px;line-height:1.6"><p>Screenshots would have shown me a tidy flow with green ticks. Running real searches showed me what the ticks hid: 115 calls, no answer, and a “Success” on a call where no one spoke. None of that is visible until you wait twelve hours for a keyboard.</p><p>Separating evidence from interpretation kept me honest. Two of my first findings, that the voice made people hang up and that the ranking came from the AI overview, didn't survive it, so one became a stated hypothesis and the other was dropped.</p><p>With more time, I'd put the answer block in front of people who actually search for local items, and find out whether they trust what was heard over what was only listed.</p></div>`+
+   `<div class="links"><span class="cx-k">Links</span>${[["Prototype","https://www.figma.com/proto/st1fWnc43CtvHnyWKvY6v5/Aurora-AI---Redesign?node-id=39-12537&viewport=-4651%2C-112%2C0.14&t=TGsRsTt0Gwj9Sm9z-1&scaling=scale-down&content-scaling=fixed&page-id=8%3A92"],["Figma file","https://www.figma.com/design/st1fWnc43CtvHnyWKvY6v5/Aurora-AI---Redesign?node-id=41-14963"],["Walkthrough (1 min)","https://drive.google.com/file/d/1SRJRlI_OUXx7BVehe9yw4QvGfgoWKprz/view?usp=sharing"]].map(x=>`<a class="lk" href="${x[1]}" target="_blank" rel="noopener">${x[0]} ↗</a>`).join("")}</div>`)}
  ]};
 
 /* ---------- desk config ---------- */
-const STATUS={sigma:["Prototype · internal test","warn"],aurora:["Take-home · about a week","neu"],nolano:["Built · never launched","warn"],terralay:["Handed off · not in use yet","neu"],acadlens:["Live prototype · open source","ok"]};
+const STATUS={sigma:["Prototype · internal test","warn"],aurora:["Take-home · about a week","neu"],nolano:["Built · used in demos","neu"],terralay:["Handed off · not in use yet","neu"],acadlens:["Live prototype · open source","ok"]};
 const DEMO_CAP={sigma:"Drag across cells to scope, then run",nolano:"Drag the horizon",terralay:"Tap the map to drop a pin",aurora:"Flip between the old and new statuses",acadlens:"Pick a question"};
 const READERS={
  look:{label:"Just looking",short:"anyone",order:["sigma","aurora","nolano","terralay","acadlens"],dim:[],lens:{}},
@@ -1143,7 +1144,7 @@ function home(){
       <h1 class="name">Aniket Kherde</h1>
       <p class="tagline" id="h1"><span class="gx" hidden>Product designer who creates beautiful, user-centric interfaces.</span>I design AI that <em>shows its work</em>, stays in scope and can be corrected.</p>
       <p class="sub">Founding product designer at Nolano AI. Trained as an architect at IIT Kharagpur.</p>
-      <div class="hero-act"><a class="open" href="#" data-go="board">See the work ↓</a><button class="gen" id="gen" aria-pressed="false">.</button></div>
+      <div class="hero-act"><a class="open" href="#" data-go="board">See the work ↓</a><button class="gen" id="gen" aria-pressed="false">Show the generic version</button></div>
     </div>
     <dl class="meta">
       <div><dt>Now</dt><dd>Open to full-time roles</dd></div>
@@ -1187,7 +1188,7 @@ function home(){
   $("#desk-tog").onclick=()=>{const s=$("#side"),o=!s.classList.contains("expanded");s.classList.toggle("expanded",o);document.body.classList.toggle("desk-open",o);const t=$("#desk-tog");t.setAttribute("aria-expanded",o);t.querySelector("span").textContent=o?"Close desk":"Tailor & ask";t.querySelector("i").textContent=o?"−":"+";if(o&&innerWidth<=900)renderAsk();};
   document.querySelectorAll(".pill").forEach(b=>b.onclick=()=>setReader(b.dataset.r));
   document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>setTime(b.dataset.t));
-  $("#gen").onclick=e=>{const on=e.currentTarget.getAttribute("aria-pressed")!=="true";e.currentTarget.setAttribute("aria-pressed",on);e.currentTarget.textContent=on?"Hide the generic version":"";$("#h1 .gx").hidden=!on;};
+  $("#gen").onclick=e=>{const on=e.currentTarget.getAttribute("aria-pressed")!=="true";e.currentTarget.setAttribute("aria-pressed",on);e.currentTarget.textContent=on?"Hide the generic version":"Show the generic version";$("#h1 .gx").hidden=!on;};
   boardClass();labels();
   if(!S.ready) boot(); else renderBoard(false);
 }
