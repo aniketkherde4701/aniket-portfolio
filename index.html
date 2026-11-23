@@ -688,9 +688,10 @@ body:not(.desk-open) .scope-btn{display:none}
 .ph.has{cursor:zoom-in}.lb{position:fixed;inset:0;z-index:1000;display:none;place-items:center;padding:4vh 4vw;background:rgba(10,10,9,.88);cursor:zoom-out}.lb.on{display:grid}.lb img{max-width:100%;max-height:92vh;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}.lbx{position:absolute;top:14px;right:18px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:24px;cursor:pointer}
 
 a.lk{color:var(--ink);text-decoration:none}a.lk:hover{border-color:var(--ink)}
+
+.ogrp+.ogrp{margin-top:22px}.ocat{margin:0 0 10px;font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);display:flex;align-items:center;gap:8px}.ocat small{font:inherit;color:var(--ink3);border:1px solid var(--line);border-radius:999px;padding:3px 7px;letter-spacing:0}
+.ogrp .other{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;background:none;border:0;border-radius:0;overflow:visible}.ogrp .other a{border:1px solid var(--line);border-radius:10px}@media (max-width:900px){.ogrp .other{grid-template-columns:1fr}}
 </style>
-<!-- Vercel Web Analytics -->
-<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body>
 
@@ -784,7 +785,11 @@ const EXPERIENCE=[
  ["Arth Design Build","Architectural Intern","BIM coordination to LOD 400; automated model checks with Dynamo.","Jun – Aug 2022"]
 ];
 const QUOTES=[["TV","Tejas Vaidhya","Co-founder, Nolano AI","Aniket quickly adapted to new tools and consistently delivered thoughtful, high-quality work."],["AD","Alexis Dornier","Founder, Alexis Dornier Studios","Aniket learns fast, solves problems with clarity, and consistently delivers thoughtful, excellent work."],["AG","Agnetha Goetz","Architect, Alexis Dornier Studios","Smart, fast, and dependable. A solid contributor with strong drive."]];
-const OTHER=[["Bamboo Cutlery · branding","https://www.behance.net/gallery/219990967/Branding-Bamboo-Cutlery-Brand"],["Furniture platform · branding","https://www.behance.net/gallery/194176051/Branding-Furniture-selling-platform"],["Flock n Roll · interior","https://www.behance.net/gallery/169217075/Flock-n-Roll"],["Architecture portfolio 2024","https://www.behance.net/gallery/190465651/Architectural-Portfolio-2024-Aniket-Kherde"],["Wayfarer · travel planning","https://www.behance.net/gallery/258752209/Wayfarer-Travel-planning"]];
+const OTHER=[
+ ["Web designs",[["Sigma · product website","https://lower-principles-104031.framer.app/"],["Nolano AI · company website","https://nolano.ai/"],["Wayfarer · travel planning","https://www.behance.net/gallery/258752209/Wayfarer-Travel-planning"]]],
+ ["Branding & design",[["Bamboo Cutlery · branding","https://www.behance.net/gallery/219990967/Branding-Bamboo-Cutlery-Brand"],["Furniture platform · branding","https://www.behance.net/gallery/194176051/Branding-Furniture-selling-platform"]]],
+ ["Architecture",[["Flock n Roll · interior","https://www.behance.net/gallery/169217075/Flock-n-Roll"],["Architecture portfolio 2024","https://www.behance.net/gallery/190465651/Architectural-Portfolio-2024-Aniket-Kherde"]]]
+];
 const EMAIL="aniketkherde977@gmail.com",GMAIL="https://mail.google.com/mail/?view=cm&fs=1&to=aniketkherde977@gmail.com&su=Let%E2%80%99s%20Work%20Together",LINKEDIN="https://www.linkedin.com/in/aniket-kherde-181120219/",CV="https://drive.google.com/file/d/1rXEKSZ8jDrfb9V_wA51wx7i45IXG0bwg/view?usp=sharing";
 
 /* Hero diff: a generic portfolio, edited into Aniket's. */
@@ -1448,7 +1453,7 @@ function appendix(){
     </div></div></section>
    <section><div class="k"><div class="lbl">[ 03 ]</div><h2>Experience</h2></div><div class="v"><div class="xp">${EXPERIENCE.map(([co,role,d,t])=>`<div><time>${esc(t)}</time><div><b>${esc(co)}</b> · <i>${esc(role)}</i><p>${esc(d)}</p></div></div>`).join("")}</div></div></section>
    <section><div class="k"><div class="lbl">[ 04 ]</div><h2>What people say</h2></div><div class="v"><div class="quotes">${QUOTES.map(([i,n,r,q])=>`<figure><blockquote>“${esc(q)}”</blockquote><figcaption><b>${esc(n)}</b>${esc(r)}</figcaption></figure>`).join("")}</div></div></section>
-   <section><div class="k"><div class="lbl">[ 05 ]</div><h2>Other work</h2></div><div class="v"><p style="margin:0 0 14px;color:var(--ink2)">All of these live on Behance. <a href="https://www.behance.net/aniket_kherde" target="_blank" rel="noopener" style="color:var(--ink);font-weight:600">See the full Behance profile ↗</a></p><div class="other">${OTHER.map(([t,u])=>u?`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`:`<span>${esc(t)} · on request</span>`).join("")}</div></div></section>
+   <section><div class="k"><div class="lbl">[ 05 ]</div><h2>Other work</h2></div><div class="v">${OTHER.map(([cat,items])=>`<div class="ogrp"><h3 class="ocat">${esc(cat)}<small>${items.length}</small></h3><div class="other">${items.map(([t,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join("")}</div></div>`).join("")}<p style="margin:18px 0 0;color:var(--ink2)">More on Behance. <a href="https://www.behance.net/aniket_kherde" target="_blank" rel="noopener" style="color:var(--ink);font-weight:600">See the full Behance profile ↗</a></p></div></section>
    <section class="contact" id="contact"><div class="k"><div class="lbl">[ 06 ]</div><h2>Contact</h2></div><div class="v"><a class="big" href="${esc(GMAIL)}" target="_blank" rel="noopener">${EMAIL}</a><div class="row"><a class="btn pri" href="${CV}" target="_blank" rel="noopener">CV ↗</a><a class="btn" href="${LINKEDIN}" target="_blank" rel="noopener">LinkedIn ↗</a><a class="btn" href="https://www.behance.net/aniket_kherde" target="_blank" rel="noopener">Behance ↗</a><a class="btn" href="https://github.com/aniketkherde4701" target="_blank" rel="noopener">GitHub ↗</a></div></div></section>
   </div>
   <footer class="foot"><span>Aniket Kherde · 2026</span><span>Demos are simplified and use example data. Statuses are as of Nov 2026.</span></footer>`;
